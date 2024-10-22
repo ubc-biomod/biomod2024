@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { AnimationMixer } from "three";
 
 export default function ThreeJSComponent() {
   useEffect(() => {
@@ -21,9 +22,31 @@ export default function ThreeJSComponent() {
 
     let meshIndex = 0;
     let model;
+    let mixer;
+
     loader.load(
-      "/assets/fridge.glb", // Assuming the model is in the public folder
+      "/assets/fridge_w_animation.glb", // Assuming the model is in the public folder
       function (gltf) {
+        model = gltf.scene;
+        scene.add(model);
+
+        mixer = new AnimationMixer( model );
+
+        const clip = THREE.AnimationClip.findByName(gltf.animations, "shrinkAndGrow");
+
+        // const action = mixer.clipAction( clip );
+        // action.play();
+
+        if (clip) {
+          const action = mixer.clipAction(clip);
+          action.play();
+        }
+
+        // // Play all animations
+        // clips.forEach( function ( clip ) {
+        //   mixer.clipAction( clip ).play();
+        // } );
+
         gltf.scene.traverse((child) => {
           if (child.isMesh) {
             if (meshIndex === 0) {
@@ -38,9 +61,7 @@ export default function ThreeJSComponent() {
             meshIndex++;
           }
         });
-        model = gltf.scene;
         // model.rotation.y = Math.PI / -2;
-        scene.add(model);
       },
       function (error) {
         console.error("An error happened", error);
@@ -71,9 +92,14 @@ export default function ThreeJSComponent() {
       }
     });
 
+    
+        
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
+      if (mixer) {
+        mixer.update(0.01); // Update the mixer for animations
+      }
       renderer.render(scene, camera);
     }
 
