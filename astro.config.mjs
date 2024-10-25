@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
+import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,6 +12,10 @@ export default defineConfig({
       social: {
         github: "https://github.com/withastro/starlight",
       },
+      customCss: [
+        // Path to your Tailwind base styles:
+        "./src/tailwind.css",
+      ],
       sidebar: [
         {
           label: "Guides",
@@ -24,6 +29,10 @@ export default defineConfig({
           autogenerate: { directory: "reference" },
         },
       ],
+    }),
+    tailwind({
+      // Disable the default base styles:
+      applyBaseStyles: false,
     }),
     react(),
   ],

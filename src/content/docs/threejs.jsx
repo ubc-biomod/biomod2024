@@ -4,7 +4,8 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { AnimationMixer } from "three";
 
 export default function ThreeJSComponent() {
-  const [isAnimating, setIsAnimating] = useState(false); // State to control animation
+  const [animationNum, setAnimation] = useState(0); // State to control animation
+  const numOfAnimations = 2;
 
   useEffect(() => {
     // Three.js code
@@ -92,7 +93,7 @@ export default function ThreeJSComponent() {
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
-      if (mixer && isAnimating) {
+      if (mixer && animationNum) {
         mixer.update(0.01); // Update the mixer for animations
       }
       renderer.render(scene, camera);
@@ -111,25 +112,52 @@ export default function ThreeJSComponent() {
     return () => {
       container.removeChild(renderer.domElement);
     };
-  }, [isAnimating]);
+  }, [animationNum]);
 
   // Toggle animation function
-  const toggleAnimation = () => {
-    setIsAnimating((prevState) => {
-      if (!prevState && mixer) {
+  // const toggleAnimation = () => {
+  //   setIsAnimating((prevState) => {
+  //     if (prevState == 0 && mixer) {
+  //       action.play(); // Start the animation
+  //     } else if (prevState == 1 && mixer) {
+  //       action.stop(); // Stop the animation
+  //     }
+  //     return (prevState + 1)%2;
+  //   });
+  // };
+
+  const prevAnimation = () => {
+    setAnimation((prevState) => {
+      if (prevState > 1) {
         action.play(); // Start the animation
-      } else if (prevState && mixer) {
+      } else if (prevState == 1) {
         action.stop(); // Stop the animation
+      } else {
+        return prevState
       }
-      return !prevState;
+      return prevState - 1;
+    });
+  };
+
+  const nextAnimation = () => {
+    setAnimation((prevState) => {
+      if (prevState < numOfAnimations) {
+        action.play(); // Start the animation
+      } else {
+        return prevState
+      }
+      return prevState + 1;
     });
   };
 
   return (
     <>
       <div id="threejs-container" />
-      <button onClick={toggleAnimation}>
-        {isAnimating ? "Stop Animation" : "Start Animation"}
+      <button onClick={prevAnimation}>
+        {"<"}
+      </button>
+      <button onClick={nextAnimation}>
+        {">"}
       </button>
     </>);
 }
