@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* DO NOT INCLUDE @tailwind base, components, utilities */
 /* IT WILL BREAK THE STYLING!!! */
 
