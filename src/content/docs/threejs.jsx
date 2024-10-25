@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 export default function ThreeJSComponent() {
+  const [isAnimating, setIsAnimating] = useState(false); // State to control animation
+
   useEffect(() => {
     // Three.js code
     const container = document.getElementById("threejs-container");
@@ -22,8 +24,21 @@ export default function ThreeJSComponent() {
     let meshIndex = 0;
     let model;
     loader.load(
-      "/assets/fridge.glb", // Assuming the model is in the public folder
+      "/assets/fridge_w_2_animation.glb", // Assuming the model is in the public folder
       function (gltf) {
+        model = gltf.scene;
+        scene.add(model);
+
+        mixer = new AnimationMixer( model );
+
+        const clip = THREE.AnimationClip.findByName(gltf.animations, "shrinkAndGrow");
+
+
+        if (clip) {
+          const action = mixer.clipAction(clip);
+          action.play();
+        }
+
         gltf.scene.traverse((child) => {
           if (child.isMesh) {
             if (meshIndex === 0) {
@@ -74,6 +89,9 @@ export default function ThreeJSComponent() {
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
+      if (mixer && isAnimating) {
+        mixer.update(0.01); // Update the mixer for animations
+      }
       renderer.render(scene, camera);
     }
 
@@ -90,7 +108,25 @@ export default function ThreeJSComponent() {
     return () => {
       container.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [isAnimating]);
 
-  return <div id="threejs-container" />;
+  // Toggle animation function
+  const toggleAnimation = () => {
+    setIsAnimating((prevState) => {
+      if (!prevState && mixer) {
+        action.play(); // Start the animation
+      } else if (prevState && mixer) {
+        action.stop(); // Stop the animation
+      }
+      return !prevState;
+    });
+  };
+
+  return (
+    <>
+      <div id="threejs-container" />
+      <button onClick={toggleAnimation}>
+        {isAnimating ? "Stop Animation" : "Start Animation"}
+      </button>
+    </>);
 }
