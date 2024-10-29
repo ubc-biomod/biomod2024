@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { AnimationMixer } from "three";
 
 export default function ThreeJSComponent() {
-  const [animationNum, setAnimation] = useState(0); // State to control animation
+  const [animationNum, setAnimation] = useState(0);
   const numOfAnimations = 2;
+  const mixerRef = useRef(null); // Store the mixer ref here
+  const actionsRef = useRef({}); // Store animation actions in an object
 
   useEffect(() => {
-    // Three.js code
     const container = document.getElementById("threejs-container");
     const WIDTH = 400;
     const HEIGHT = 500;
@@ -22,28 +23,28 @@ export default function ThreeJSComponent() {
     container.appendChild(renderer.domElement);
 
     const loader = new GLTFLoader();
-
-    let meshIndex = 0;
     let model;
-    let mixer;
 
     loader.load(
-      "/assets/fridge_w_2_animation.glb", // Assuming the model is in the public folder
+      "/assets/fridge_w_2_animation.glb", // Ensure this path is correct
       function (gltf) {
         model = gltf.scene;
         scene.add(model);
 
-        mixer = new AnimationMixer( model );
+        // Initialize AnimationMixer
+        mixerRef.current = new AnimationMixer(model);
 
-        const clip = THREE.AnimationClip.findByName(gltf.animations, "shrinkAndGrow");
+        // Create actions for all animations in the GLTF
+        gltf.animations.forEach((clip) => {
+          const action = mixerRef.current.clipAction(clip);
+          action.setLoop(THREE.LoopOnce, 1);
+          actionsRef.current[clip.name] = action;
+        });
 
+        model.rotation.y = Math.PI / -2;
 
-        if (clip) {
-          const action = mixer.clipAction(clip);
-          action.play();
-        }
-
-        gltf.scene.traverse((child) => {
+        let meshIndex = 0;
+        model.traverse((child) => {
           if (child.isMesh) {
             if (meshIndex === 0) {
               child.material = new THREE.MeshStandardMaterial({
@@ -57,7 +58,6 @@ export default function ThreeJSComponent() {
             meshIndex++;
           }
         });
-        // model.rotation.y = Math.PI / -2;
       },
       function (error) {
         console.error("An error happened", error);
@@ -66,6 +66,7 @@ export default function ThreeJSComponent() {
 
     camera.position.z = 4.5;
 
+    // Lighting
     const ambientLight = new THREE.AmbientLight(0x404040, 1); // soft white light
     scene.add(ambientLight);
 
@@ -73,7 +74,6 @@ export default function ThreeJSComponent() {
     directionalLight.position.set(1, 0.2, 1).normalize();
     scene.add(directionalLight);
 
-    // Cursor position
     let mouseX = 0;
     let mouseY = 0;
 
@@ -88,20 +88,19 @@ export default function ThreeJSComponent() {
       }
     });
 
-    
-        
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
-      if (mixer && animationNum) {
-        mixer.update(0.01); // Update the mixer for animations
+
+      if (mixerRef.current) {
+        mixerRef.current.update(0.01); // Update the mixer for animations when active
       }
+
       renderer.render(scene, camera);
     }
 
     animate();
 
-    // Handle window resize
     window.addEventListener("resize", () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -112,52 +111,62 @@ export default function ThreeJSComponent() {
     return () => {
       container.removeChild(renderer.domElement);
     };
-  }, [animationNum]);
+  }, []);
 
-  // Toggle animation function
-  // const toggleAnimation = () => {
-  //   setIsAnimating((prevState) => {
-  //     if (prevState == 0 && mixer) {
-  //       action.play(); // Start the animation
-  //     } else if (prevState == 1 && mixer) {
-  //       action.stop(); // Stop the animation
-  //     }
-  //     return (prevState + 1)%2;
-  //   });
-  // };
+  // Function to stop all animations
+  const stopAllAnimations = () => {
+    Object.keys(actionsRef.current).forEach((actionName) => {
+      actionsRef.current[actionName].stop();
+    });
+  };
+
+  // Function to play the selected animation
+  const playAnimation = (animationName) => {
+    stopAllAnimations();
+    if (actionsRef.current[animationName]) {
+      actionsRef.current[animationName].reset().play(); // Play the selected animation
+    }
+  };
+
+  const scrollToBottom = () => {
+    window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth'
+        /* you can also use 'auto' behaviour 
+           in place of 'smooth' */
+    });
+};
 
   const prevAnimation = () => {
     setAnimation((prevState) => {
-      if (prevState > 1) {
-        action.play(); // Start the animation
-      } else if (prevState == 1) {
-        action.stop(); // Stop the animation
+      const newState = prevState > 0 ? prevState - 1 : 0;
+      if (newState === 0) {
+        stopAllAnimations(); // Stop all animations for idle state
       } else {
-        return prevState
+        playAnimation(Object.keys(actionsRef.current)[newState - 1]); // Play the corresponding animation
       }
-      return prevState - 1;
+      return newState;
     });
   };
 
   const nextAnimation = () => {
     setAnimation((prevState) => {
-      if (prevState < numOfAnimations) {
-        action.play(); // Start the animation
-      } else {
-        return prevState
+      const newState = prevState < numOfAnimations + 1 ? prevState + 1 : numOfAnimations + 1;
+      if (newState > numOfAnimations) {
+        scrollToBottom();
+        // newState -= 1;
+      } else if (newState > 0) {
+        playAnimation(Object.keys(actionsRef.current)[newState - 1]); // Play the corresponding animation
       }
-      return prevState + 1;
+      return newState;
     });
   };
 
   return (
-    <>
-      <div id="threejs-container" />
-      <button onClick={prevAnimation}>
-        {"<"}
-      </button>
-      <button onClick={nextAnimation}>
-        {">"}
-      </button>
-    </>);
+    <div className="w-100 h-[500px]">
+      <div id="threejs-container" className="w-100 h-[500px]" />
+      <button onClick={prevAnimation} className="bg-black">{"<"}</button>
+      <button onClick={nextAnimation}>{">"}</button>
+    </div>
+  );
 }

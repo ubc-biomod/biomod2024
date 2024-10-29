@@ -7,15 +7,19 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   integrations: [
+    tailwind({
+      // Disable the default base styles:
+      applyBaseStyles: false,
+    }),
     starlight({
       title: "My Docs",
       social: {
         github: "https://github.com/withastro/starlight",
       },
-      customCss: [
-        // Path to your Tailwind base styles:
-        "./src/tailwind.css",
-      ],
+      // customCss: [
+      //   // Path to your Tailwind base styles:
+      //   "./src/styles/tailwind.css",
+      // ],
       sidebar: [
         {
           label: "Guides",
@@ -30,10 +34,15 @@ export default defineConfig({
         },
       ],
     }),
-    tailwind({
-      // Disable the default base styles:
-      applyBaseStyles: false,
-    }),
     react(),
   ],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        css: {
+          import: ["src/styles/global.css"], // Make this file global
+        },
+      },
+    },
+  },
 });
