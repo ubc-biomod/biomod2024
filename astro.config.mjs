@@ -14,10 +14,10 @@ export default defineConfig({
       social: {
           github: 'https://github.com/withastro/starlight',
       },
-      customCss: [
-        // Path to your Tailwind base styles:
-        "./src/tailwind.css",
-      ],
+      // customCss: [
+      //   // Path to your Tailwind base styles:
+      //   "./src/styles/tailwind.css",
+      // ],
       sidebar: [
           {
               label: 'Home',
