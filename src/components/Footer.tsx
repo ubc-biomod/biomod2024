@@ -22,7 +22,7 @@ const carouselItems: CarouselItem[] = [
 
 const Footer: React.FC = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const [activeText, setActiveText] = useState<string>("‎");
+  const [activeText, setActiveText] = useState<string>("");
   const [Marquee, setMarquee] = useState<any>(null);
 
   useEffect(() => {
@@ -38,7 +38,9 @@ const Footer: React.FC = () => {
         <h1 className="text-2xl md:text-4xl text-black font-bold mt-10">
           Meet the UBC BIOMOD Team
         </h1>
-        <h4 className="text-md text-black mt-4 mb-1">{activeText}</h4>
+        <div className="h-12">
+          <h4 className="text-md text-black mt-4 mb-1">{activeText}</h4>
+        </div>
 
         <div className="flex w-full">
           {Marquee ? (
@@ -54,7 +56,7 @@ const Footer: React.FC = () => {
                     }}
                     onMouseLeave={() => {
                       setHoverIndex(null);
-                      setActiveText("‎");
+                      setActiveText("");
                     }}
                   >
                     <img
@@ -84,17 +86,17 @@ const Footer: React.FC = () => {
             />
           </a>
           <div className="mx-12">
-          <a
-            href="https://youtube.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="youtube.png"
-              alt="YouTube"
-              className="w-8 h-8 cursor-pointer"
-            />
-          </a>
+            <a
+              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="youtube.png"
+                alt="YouTube"
+                className="w-8 h-8 cursor-pointer"
+              />
+            </a>
           </div>
           <a
             href="https://linkedin.com"
