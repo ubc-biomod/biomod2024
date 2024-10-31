@@ -5,25 +5,28 @@ interface CarouselItem {
   text: string; // text info shown on hover
 }
 // should be able to read from db and map it to something like this in the future
-const carouselItems: CarouselItem[] = [
+const fetchedItems: CarouselItem[] = [
   { image: "dog.jpg", text: "Info 1" },
-  { image: "dog.jpg", text: "Info 2" },
-  { image: "dog.jpg", text: "Info 3" },
-  { image: "dog.jpg", text: "Info 4" },
-  { image: "dog.jpg", text: "Info 5" },
-  { image: "dog.jpg", text: "Info 6" },
-  { image: "dog.jpg", text: "Info 7" },
-  { image: "dog.jpg", text: "Info 8" },
-  { image: "dog.jpg", text: "Info 9" },
-  { image: "dog.jpg", text: "Info 10" },
-  { image: "dog.jpg", text: "Info 11" },
-  { image: "dog.jpg", text: "Info 12" },
+  { image: "dog.jpg", text: "Info 1" },
 ];
 
 const Footer: React.FC = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [activeText, setActiveText] = useState<string>("");
   const [Marquee, setMarquee] = useState<any>(null);
+  const [carouselItems, setCarouselItems] = useState<CarouselItem[]>([]);
+
+  useEffect(() => {
+    const THRESHOLD = 15;
+    // Set the carousel items after fetching from DB
+    if (fetchedItems.length < THRESHOLD)
+      setCarouselItems(
+        Array.from(
+          { length: THRESHOLD / fetchedItems.length },
+          () => fetchedItems
+        ).flat()
+      );
+  }, [fetchedItems]);
 
   useEffect(() => {
     // Dynamically import Marquee on the client side
@@ -49,7 +52,7 @@ const Footer: React.FC = () => {
                 {carouselItems.map((item, index) => (
                   <div
                     key={index}
-                    className="w-24 h-24 rounded-2xl flex items-center justify-center cursor-pointer relative mx-4"
+                    className="w-24 h-24 rounded-2xl flex items-center justify-center cursor-pointer relative mx-2"
                     onMouseEnter={() => {
                       setHoverIndex(index);
                       setActiveText(item.text);
