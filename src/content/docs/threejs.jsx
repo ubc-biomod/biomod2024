@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { AnimationMixer } from "three";
+import lockBodyScroll from "./hooks/lockBodyScroll";
+import useScrollAnimation from "./hooks/useScrollAnimation";
 
 export default function ThreeJSComponent() {
+  const [isLocked, toggleScrollLock] = lockBodyScroll();
+  // toggle();
   const [animationNum, setAnimation] = useState(0);
   const [isFading, setIsFading] = useState(false);
-  const [displayText, setDisplayText] = useState(["Begin", ""]);
+  const [displayText, setDisplayText] = useState(["Begin", "Scroll to Proceed"]);
   const textDict = [["Phase 1", "Box Formation"], ["Phase 2", "Open Box"], ["Phase 3", "Containerize Pill"], ["Phase 4" ,"Close Box"]];
 
   const numOfAnimations = 2;
@@ -13,7 +18,10 @@ export default function ThreeJSComponent() {
   const actionsRef = useRef({}); // Store animation actions in an object
   const TEXTANIMATIONTIME = 500;
 
+
   useEffect(() => {
+
+    // 3D object
     const container = document.getElementById("threejs-container");
     const WIDTH = 400;
     const HEIGHT = 500;
@@ -88,10 +96,14 @@ export default function ThreeJSComponent() {
 
       // Update model rotation based on mouse position
       if (model) {
-        model.rotation.y = (mouseX - Math.PI / 2) * Math.PI * 0.3;
+        model.rotation.y = (mouseX) * Math.PI * 0.3;
         model.rotation.x = mouseY * Math.PI * -0.3;
       }
     });
+
+
+    // window.scrollTo(0, 200)
+
 
     // Animation loop
     function animate() {
@@ -112,10 +124,18 @@ export default function ThreeJSComponent() {
       renderer.setSize(WIDTH, HEIGHT);
     });
 
+    // var threeElement = document.getElementById("threejs-container");
+    // threeElement.scrollIntoView({behavior:"auto", block: "center", inline:"nearest"});
+    setTimeout(() => {
+      toggleScrollLock(true);
+    }, 1000);
+    
+
     // Cleanup on component unmount
     return () => {
       container.removeChild(renderer.domElement);
       clearTimeout(fadeTimeout);
+      toggleScrollLock(false);
     };
   }, []);
 
@@ -166,7 +186,7 @@ export default function ThreeJSComponent() {
       if (newState === 0) {
         stopAllAnimations(); // Stop all animations for idle state
         setIsFading(true)
-        setDisplayText(["Begin", ""]);
+        setDisplayText(["Begin", "Scroll to Proceed"]);
         setIsFading(true);
         playAnimation("None");
       } else {
@@ -182,6 +202,7 @@ export default function ThreeJSComponent() {
     setAnimation((prevState) => {
       const newState = prevState < numOfAnimations + 1 ? prevState + 1 : numOfAnimations + 1;
       if (newState > numOfAnimations) {
+        toggleScrollLock(false);
         scrollToBottom();
         return prevState;
       } else if (newState > 0) {
@@ -193,13 +214,16 @@ export default function ThreeJSComponent() {
     });
   };
 
+  useScrollAnimation(prevAnimation, nextAnimation, isLocked);
+
   return (
-    <div className="flex justify-center items-center h-screen mb-40 mt-100">
+    
+    <div className="grid grid-cols-1 h-screen mb-40 mt-100">
     {/* Circle container */}
-    <div className="relative w-[800px] h-[800px] rounded-full flex justify-center items-center bg-gradient-to-br from-amber-200 to-pink-700">
+    <div className="relative aspect-square rounded-full flex justify-center items-center bg-gradient-to-br from-amber-200 to-pink-700 p-30">
       
       {/* Title in top right */}
-      <div className="absolute top-40 right-0 text-lg font-bold">
+      <div className="absolute top-20 right-0 text-lg font-bold">
         <h1>The Origami Box</h1>
       </div>
       
@@ -209,31 +233,38 @@ export default function ThreeJSComponent() {
 
       <div className="">
         <div id="threejs-container" className="" />
-          <div className="flex justify-center content-center space-x-4 p-3 w-400 mt-5"> {/* Added space between buttons */}
-            <button
-              onClick={prevAnimation}
-              className="px-4 py-2 bg-gray-300 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition duration-200 ease-in-out"
-            >
-              {"Prev"}
-            </button>
-            <button
-              onClick={nextAnimation}
-              className="px-4 py-2 bg-gray-300 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-200 ease-in-out"
-            >
-              {"Next"}
-            </button>
-          </div>
+          
         </div>
-
       </div>
       
       {/* Text in bottom left */}
-      <div className={`absolute bottom-40 left-40 text-lg font-bold transition-all duration-${TEXTANIMATIONTIME}} transform ${
+      <div className={`text-center absolute bottom-20 left-20 text-lg font-bold transition-all duration-${TEXTANIMATIONTIME}} transform ${
         isFading? "scale-0" : "scale-100"
       }`}>
         <h3 className="">
-        {displayText[0]} <br /> {displayText[1]}
+        | <br/ > {displayText[0]} <br /> {displayText[1]} <br/ > |
         </h3>
+      </div>
+      <div className="absolute bottom-10 right-0 flex justify-end">
+        <div className="flex flex-col justify-center content-center">
+          <div className="flex justify-center content-center">
+            <button
+              onClick={prevAnimation}
+              className="text-black hover:text-white -600 transition duration-300 ease-in-out"
+            >
+              <span class="material-icons">arrow_upward</span>
+            </button>
+          </div>
+          <div className="flex justify-center content-center"> 
+            <button
+              onClick={nextAnimation}
+              className="text-black hover:text-white -600 transition duration-300 ease-in-out"
+            >
+              <span class="material-icons">arrow_downward</span>
+            </button>
+          </div>
+          
+        </div>
       </div>
     </div>
   </div>
