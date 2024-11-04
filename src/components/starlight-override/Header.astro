@@ -1,120 +1,88 @@
 ---
-const links = [
-  { title: "Home", href: "/" },
-  { title: "Ideas", href: "/ideas" },
-  { title: "ELSI", href: "/elsi" },
-  { title: "Sponsors", href: "/sponsors" }
-];
+import type { Props } from "@astrojs/starlight/props";
+import Default from "@astrojs/starlight/components/Header.astro";
+import Logo from "../../assets/team-logo.png";
+import { Image } from "astro:assets";
+import { BsBoxArrowUpRight } from "react-icons/bs";
+import { IconContext } from "react-icons/lib";
+
+const isHomePage = Astro.props.slug === "";
+
+const titleLink = {
+  title: "UBC BIOMOD",
+  href: "/",
+};
+let links: { title: string; href: string }[] = [];
+let callToActionLink = {
+  title: "Lab Notebook",
+  href: "",
+};
+
+Astro.props.sidebar.forEach((item) => {
+  // Normal pages
+  if (item.type === "link") {
+    links.push({
+      title: item.label,
+      href: item.href,
+    });
+    return;
+  }
+
+  // Docs pages
+  if (item.type !== "group" || item.entries.length === 0) return;
+
+  const firstLink = item.entries.find((e) => e.type === "link");
+  if (!firstLink) return;
+
+  if (item.badge?.text === "Call to Action") {
+    callToActionLink.href = firstLink.href;
+    callToActionLink.title = item.label;
+  } else {
+    links.push({
+      title: item.label,
+      href: firstLink.href,
+    });
+  }
+});
 ---
 
-<head>
-  <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap" rel="stylesheet" />
-</head>
+{
+  !isHomePage ? (
+    <Default {...Astro.props}>
+      <slot />
+    </Default>
+  ) : (
+    <div class="flex flex-row text-center bg-transparent">
+      {/* Logo + Team Name */}
+      <a href={titleLink.href}>
+        <div class="flex flex-row gap-x-3 justify-center items-center hover:opacity-70">
+          <Image src={Logo} alt="UBC BIOMOD Logo" class="w-8 h-8" />
+          <span class="text-navText font-bold">{titleLink.title}</span>
+        </div>
+      </a>
 
-<nav class="navbar">
-  <div class="icon-circle"></div>
-  <span class="navbar-title">UBC BIOMOD</span>
-  <div class="navbar-links">
-    {links.map((link: { href: string | URL | null | undefined; title: unknown; }) => <a href={link.href}>{link.title}</a>)}
-  </div>
-  <div class="lab-notebook-button">
-    <a href="/lab-notebook" class="nav-link">
-        <span class="notebook-text">Lab Notebook</span>
-      <svg
-        class="external-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-        <polyline points="15 3 21 3 21 9"></polyline>
-        <line x1="10" y1="14" x2="21" y2="3"></line>
-      </svg>
-    </a>
-  </div>
-</nav>
+      <div class="flex flex-row gap-x-16 grow justify-center items-center">
+        {links.map((link) => (
+          <a
+            class="group text-navText font-semibold hover:opacity-70 transition duration-300"
+            href={link.href}
+          >
+            {link.title}
+            <div
+              class="max-w-0 group-hover:left-0 group-hover:max-w-full h-[0.2rem] bg-black
+              transition-all duration-300 origin-center relative left-1/2"
+            />
+          </a>
+        ))}
+      </div>
 
-<style>
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background: transparent;
-    width: 100%;
-  }
+      <a href={callToActionLink.href} class="btn-primary">
+        <span>{callToActionLink.title}</span>
 
-  .icon-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: #ffd966;
-    margin-right: 16px;
-  }
-
-  .navbar-title {
-    color: #000;
-    font-family: "Inria Sans", sans-serif;
-    font-size: 24px;
-    font-weight: 450;
-    align-items: center;
-  }
-
-  .navbar-links {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-  }
-
-  .navbar-links a {
-    text-decoration: none;
-    font-family: "Inria Sans", sans-serif;
-    font-weight: 450;
-    color: black;
-    transition: color 0.2s ease;
-    align-items: center;
-  }
-
-  .lab-notebook-button {
-    display: flex;
-    align-items: center;
-  }
-
-  .notebook-text {
-    color: white; 
-    align-items: center;
-  }
-
-  .nav-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 999px;
-    background-color: #000;
-    color: white;
-    font-family: "Inria Sans", sans-serif;
-    font-weight: 450;
-    text-decoration: none;
-    border: 1px solid #000;
-    transition: background-color 0.2s ease;
-  }
-
-  .nav-link:hover {
-    background-color: white;
-  }
-
-  .navbar-links a:hover {
-    color: #ffd966;
-  }
-
-  .external-icon {
-    stroke: #ffd966;
-  }
-</style>
+        <IconContext.Provider value={{ className: "" }}>
+          <BsBoxArrowUpRight />
+        </IconContext.Provider>
+      </a>
+    </div>
+  )
+}
