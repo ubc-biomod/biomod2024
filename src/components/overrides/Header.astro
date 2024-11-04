@@ -4,8 +4,12 @@ import SearchDefault from '@astrojs/starlight/components/Search.astro'
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { IconContext } from "react-icons/lib";
 import HomeButton from "./HomeButton.astro";
+import { isTemplateSpan } from "typescript";
 
-const isHomePage = Astro.props.slug === "";
+const normalPages = Astro.props.sidebar
+  .filter((item) => item.type === "link")
+  .map((item) => item.href);
+const isNormalPage = normalPages.includes("/" + Astro.props.slug);
 
 let links: { title: string; href: string }[] = [];
 let callToActionLink = {
@@ -15,7 +19,7 @@ let callToActionLink = {
 
 Astro.props.sidebar.forEach((item) => {
   // Normal pages
-  if (item.type === "link" && isHomePage) {
+  if (item.type === "link" && isNormalPage) {
     links.push({
       title: item.label,
       href: item.href,
@@ -29,7 +33,7 @@ Astro.props.sidebar.forEach((item) => {
   const firstLink = item.entries.find((e) => e.type === "link");
   if (!firstLink) return;
 
-  if (item.badge?.text === "Call to Action" && isHomePage) {
+  if (item.badge?.text === "Call to Action" && isNormalPage) {
     callToActionLink.href = firstLink.href;
     callToActionLink.title = item.label;
   } else {
@@ -64,7 +68,7 @@ Astro.props.sidebar.forEach((item) => {
   </div>
 
     {
-      isHomePage ? (
+      isNormalPage ? (
         <a
           href={callToActionLink.href}
           class={`btn-primary`}
