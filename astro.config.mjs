@@ -20,19 +20,19 @@ export default defineConfig({
                 badge: 'Hidden'
             },
             {
-                label: 'Lab Notebook',
-                autogenerate: { directory: 'lab-notebook' },
-                badge: {
-                    text: 'Call to Action',
-                }
-            },
-            {
                 label: 'Ideas',
                 autogenerate: { directory: 'ideas' },
             },
             {
                 label: 'ELSI',
                 autogenerate: { directory: 'elsi' },
+            },
+            {
+                label: 'Lab Notebook',
+                autogenerate: { directory: 'lab-notebook' },
+                badge: {
+                    text: 'Call to Action',
+                }
             },
             {
                 label: 'Sponsors',
