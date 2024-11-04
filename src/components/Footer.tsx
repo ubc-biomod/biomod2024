@@ -4,11 +4,7 @@ interface CarouselItem {
   image: string; // image
   text: string; // text info shown on hover
 }
-// should be able to read from db and map it to something like this in the future
-const fetchedItems: CarouselItem[] = [
-  { image: "dog.jpg", text: "Info 1" },
-  { image: "dog.jpg", text: "Info 1" },
-];
+
 
 const Footer: React.FC = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
@@ -17,16 +13,26 @@ const Footer: React.FC = () => {
   const [carouselItems, setCarouselItems] = useState<CarouselItem[]>([]);
 
   useEffect(() => {
-    const THRESHOLD = 15;
-    // Set the carousel items after fetching from DB
-    if (fetchedItems.length < THRESHOLD)
-      setCarouselItems(
-        Array.from(
-          { length: THRESHOLD / fetchedItems.length },
-          () => fetchedItems
-        ).flat()
-      );
-  }, [fetchedItems]);
+    // Fetch data from the endpoint
+    fetch('')
+      .then(response => response.json())
+      .then(data => {
+        // Transform the data to match CarouselItem structure
+        const items = data.map((item: any) => ({
+          image: item.image_url || "user.png",  // Fallback image if img_url is empty
+          text: `${item.name} - ${item.subteam}`
+        }));
+        
+        const THRESHOLD = 15;
+        // Check if the items are below the threshold, repeat if needed
+        setCarouselItems(
+          items.length < THRESHOLD
+            ? Array.from({ length: Math.ceil(THRESHOLD / items.length) }, () => items).flat()
+            : items
+        );
+      })
+      .catch(error => console.error("Error fetching carousel data:", error));
+  }, []);
 
   useEffect(() => {
     // Dynamically import Marquee on the client side
