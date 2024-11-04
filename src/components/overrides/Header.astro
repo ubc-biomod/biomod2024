@@ -4,7 +4,6 @@ import SearchDefault from '@astrojs/starlight/components/Search.astro'
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { IconContext } from "react-icons/lib";
 import HomeButton from "./HomeButton.astro";
-import { isTemplateSpan } from "typescript";
 
 const normalPages = Astro.props.sidebar
   .filter((item) => item.type === "link")
