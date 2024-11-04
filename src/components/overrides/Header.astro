@@ -1,0 +1,15 @@
+---
+import type { Props } from "@astrojs/starlight/props";
+import DocsNavBar from "./DocsNavbar.astro";
+import NormalNavBar from "./NormalNavbar.astro";
+
+const isHomePage = Astro.props.slug === "";
+---
+
+{
+  !isHomePage ? (
+    <DocsNavBar {...Astro.props}/>
+  ) : (
+    <NormalNavBar {...Astro.props}/>
+  )
+}

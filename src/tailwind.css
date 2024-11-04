@@ -11,7 +11,3 @@
   border-color: transparent;
   backdrop-filter: blur(4px);
 }
-
-:root {
-  --sl-nav-pad-x: 6rem;
-}

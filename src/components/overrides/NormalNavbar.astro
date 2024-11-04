@@ -1,0 +1,83 @@
+---
+import type { Props } from "@astrojs/starlight/props";
+import Logo from "../../assets/team-logo.png";
+import { Image } from "astro:assets";
+import { BsBoxArrowUpRight } from "react-icons/bs";
+import { IconContext } from "react-icons/lib";
+
+const isHomePage = Astro.props.slug === "";
+
+const titleLink = {
+  title: "UBC BIOMOD",
+  href: "/",
+};
+let links: { title: string; href: string }[] = [];
+let callToActionLink = {
+  title: "Lab Notebook",
+  href: "",
+};
+
+Astro.props.sidebar.forEach((item) => {
+  // Normal pages
+  if (item.type === "link") {
+    links.push({
+      title: item.label,
+      href: item.href,
+    });
+    return;
+  }
+
+  // Docs pages
+  if (item.type !== "group" || item.entries.length === 0) return;
+
+  const firstLink = item.entries.find((e) => e.type === "link");
+  if (!firstLink) return;
+
+  if (item.badge?.text === "Call to Action") {
+    callToActionLink.href = firstLink.href;
+    callToActionLink.title = item.label;
+  } else {
+    links.push({
+      title: item.label,
+      href: firstLink.href,
+    });
+  }
+});
+---
+
+<div class="flex flex-row text-center bg-transparent px-20">
+  {/* Logo + Team Name */}
+  <a href={titleLink.href}>
+    <div
+      class="flex flex-row gap-x-3 justify-center items-center hover:opacity-70"
+    >
+      <Image src={Logo} alt="UBC BIOMOD Logo" class="w-8 h-8" />
+      <span class="text-navText font-bold">{titleLink.title}</span>
+    </div>
+  </a>
+
+  <div class="flex flex-row gap-x-16 grow justify-center items-center">
+    {
+      links.map((link) => (
+        <a
+          class="group text-navText font-semibold hover:opacity-70 transition duration-300"
+          href={link.href}
+        >
+          {link.title}
+          <div
+            class="max-w-0 group-hover:left-0 group-hover:max-w-full h-[0.2rem] bg-black
+              transition-all duration-300 origin-center relative left-1/2"
+          />
+        </a>
+      ))
+    }
+  </div>
+
+  <a href={callToActionLink.href} class="btn-primary">
+    <span>{callToActionLink.title}</span>
+
+    <IconContext.Provider value={{ className: "" }}>
+      <BsBoxArrowUpRight />
+    </IconContext.Provider>
+  </a>
+</div>

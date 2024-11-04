@@ -41,7 +41,7 @@ export default defineConfig({
             },
         ],
         components: {
-            Header: './src/components/starlight-override/Header.astro',
+            Header: './src/components/overrides/Header.astro',
         },
         customCss: [
             './src/tailwind.css',
