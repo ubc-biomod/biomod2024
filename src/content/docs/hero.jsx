@@ -6,17 +6,19 @@ import ThreeJSComponent from "./threejs.jsx";
 // The Hero component
 export default function Hero() {
     return(
-      <div className="flex flex-col items-center justify-center space-y-4 mt-5">
+      <div className="flex flex-col items-center justify-center mt-5">
         <ThreeJSComponent/>
 
         {/* Centered YouTube Iframe */}
-        <div className="w-[800px] aspect-video flex justify-center mt-50">
-          <iframe
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/tgbNymZ7vqY"
-            allowFullScreen
-          ></iframe>
-        </div>
+        <div className="grid grid-cols-1 w-full place-items-center">
+          <div className="aspect-video flex justify-center mt-30 md:mt-10 w-3/4">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/tgbNymZ7vqY"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div> 
       </div>
     );
 }
