@@ -24,6 +24,13 @@ export default defineConfig({
             href: "https://fonts.googleapis.com/icon?family=Material+Icons",
           },
         },
+        {
+          tag: "meta",
+          attrs: {
+            name: "viewport",
+            content: "width=device-width, initial-scale=1.0",
+          },
+        },
       ],
       customCss: [
         // Relative path to your custom CSS file

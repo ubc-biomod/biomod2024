@@ -13,9 +13,10 @@ export default function ThreeJSComponent() {
   const [displayText, setDisplayText] = useState(["Begin", "Scroll to Proceed"]);
   const textDict = [["Phase 1", "Box Formation"], ["Phase 2", "Open Box"], ["Phase 3", "Containerize Pill"], ["Phase 4" ,"Close Box"]];
 
-  const numOfAnimations = 2;
+  const numOfAnimations = 4;
   const mixerRef = useRef(null); // Store the mixer ref here
   const actionsRef = useRef({}); // Store animation actions in an object
+  const containerRef = useRef(null);
   const TEXTANIMATIONTIME = 500;
 
 
@@ -23,8 +24,8 @@ export default function ThreeJSComponent() {
 
     // 3D object
     const container = document.getElementById("threejs-container");
-    const WIDTH = 400;
-    const HEIGHT = 500;
+    const WIDTH = container.clientWidth;
+    const HEIGHT = container.clientHeight;
 
     // Scene, camera, renderer
     const scene = new THREE.Scene();
@@ -148,27 +149,17 @@ export default function ThreeJSComponent() {
 
   // Function to play the selected animation
   const playAnimation = (animationName) => {
-    if (animationName == "None") {
-      setIsFading(true);
-      const timeout = setTimeout(() => {
-        setIsFading(false);
-        // Optionally change text after animation plays
-      }, TEXTANIMATIONTIME); // Match this to the duration of your animation
-      return () => clearTimeout(timeout);
-    }
-
 
     stopAllAnimations();
     if (actionsRef.current[animationName]) {
       actionsRef.current[animationName].reset().play(); // Play the selected animation
-
-      setIsFading(true);
+    }
+    setIsFading(true);
       const timeout = setTimeout(() => {
         setIsFading(false);
         // Optionally change text after animation plays
       }, TEXTANIMATIONTIME); // Match this to the duration of your animation
       return () => clearTimeout(timeout);
-    }
   };
 
   const scrollToBottom = () => {
@@ -190,7 +181,6 @@ export default function ThreeJSComponent() {
         setIsFading(true);
         playAnimation("None");
       } else {
-        setIsFading(true);
         setDisplayText(textDict[newState - 1]);
         playAnimation(Object.keys(actionsRef.current)[newState - 1]); // Play the corresponding animation
       }
@@ -206,9 +196,11 @@ export default function ThreeJSComponent() {
         scrollToBottom();
         return prevState;
       } else if (newState > 0) {
-        setIsFading(true);
         setDisplayText(textDict[newState - 1]);
-        playAnimation(Object.keys(actionsRef.current)[newState - 1]); // Play the corresponding animation
+        // if (Object.keys(actionsRef.current).length >= newState) {
+        //   playAnimation(Object.keys(actionsRef.current)[newState - 1]); // Play the corresponding animation
+        // }
+        playAnimation(Object.keys(actionsRef.current)[newState - 1]);
       }
       return newState;
     });
@@ -218,7 +210,7 @@ export default function ThreeJSComponent() {
 
   return (
     
-    <div className="grid grid-cols-1 h-screen mb-40 mt-100">
+    <div className="grid grid-cols-1 h-screen mb-10 mt-100">
     {/* Circle container */}
     <div className="relative aspect-square rounded-full flex justify-center items-center bg-gradient-to-br from-amber-200 to-pink-700 p-30">
       
@@ -228,14 +220,7 @@ export default function ThreeJSComponent() {
       </div>
       
       {/* 3D Component Centered */}
-      <div className="pb-30">
-
-
-      <div className="">
-        <div id="threejs-container" className="" />
-          
-        </div>
-      </div>
+      <div id="threejs-container" className="w-3/4 h-3/4" />
       
       {/* Text in bottom left */}
       <div className={`text-center absolute bottom-20 left-20 text-lg font-bold transition-all duration-${TEXTANIMATIONTIME}} transform ${
