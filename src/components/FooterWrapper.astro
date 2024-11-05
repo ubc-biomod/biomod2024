@@ -1,0 +1,13 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Footer from './Footer.tsx';
+
+const isHomepage = Astro.props.slug === '';
+---
+{
+    isHomepage ? (
+        <Footer client:load />
+    ) : (
+        ''
+    )
+}

@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
   }, []);
 
   return (
-    <div className="not-content">
+    <div className="not-content mt-16">
       <div className="flex flex-col bg-[#d9d9d9] items-center">
         <h1 className="text-2xl md:text-4xl text-black font-bold mt-10">
           Meet the UBC BIOMOD Team

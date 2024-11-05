@@ -44,6 +44,7 @@ export default defineConfig({
             Header: './src/components/overrides/Header.astro',
             Sidebar: './src/components/overrides/Sidebar.astro',
             Pagination: './src/components/overrides/Pagination.astro',
+            Footer: './src/components/FooterWrapper.astro',
         },
         customCss: [
             './src/tailwind.css',
