@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 export default function useScrollAnimation(prevAnimation, nextAnimation, isLocked) {
   // Use a ref to keep track of the timeout state
-  const COOLDOWN = 1000; // timeout in ms
+  const COOLDOWN = 2000; // timeout in ms
   const timeoutRef = useRef(false);
 
   useEffect(() => {
