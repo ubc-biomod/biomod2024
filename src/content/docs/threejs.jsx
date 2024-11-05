@@ -16,7 +16,6 @@ export default function ThreeJSComponent() {
   const numOfAnimations = 4;
   const mixerRef = useRef(null); // Store the mixer ref here
   const actionsRef = useRef({}); // Store animation actions in an object
-  const containerRef = useRef(null);
   const TEXTANIMATIONTIME = 500;
 
 
@@ -31,6 +30,7 @@ export default function ThreeJSComponent() {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, WIDTH / HEIGHT, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true , alpha: true});
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(WIDTH, HEIGHT);
     // renderer.setClearColor(0xffffff); // Set background color to white
     renderer.setClearColor( 0x000000, 0 );
@@ -43,6 +43,11 @@ export default function ThreeJSComponent() {
       "/assets/fridge_w_2_animation.glb", // Ensure this path is correct
       function (gltf) {
         model = gltf.scene;
+        // Center the model by calculating its bounding box and re-positioning it
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        model.position.sub(center); // Offset the model to the center
+
         scene.add(model);
 
         // Initialize AnimationMixer
@@ -122,6 +127,7 @@ export default function ThreeJSComponent() {
     window.addEventListener("resize", () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
+      renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(WIDTH, HEIGHT);
     });
 
@@ -210,28 +216,33 @@ export default function ThreeJSComponent() {
 
   return (
     
-    <div className="grid grid-cols-1 h-screen mb-10 mt-100">
+    <div className="grid grid-cols-1 h-screen mb-10 mt-100 place-items-center">
     {/* Circle container */}
-    <div className="relative aspect-square rounded-full flex justify-center items-center bg-gradient-to-br from-amber-200 to-pink-700 p-30">
+    <div className="grid grid-rows-3 grid-cols-3 aspect-square w-3/4 rounded-full bg-gradient-to-br from-amber-200 to-pink-700 p-30 place-items-center gap-x-4">
       
       {/* Title in top right */}
-      <div className="absolute top-20 right-0 text-lg font-bold">
+      <div className="text-center row-start-1 col-start-3 text-lg font-bold whitespace-nowrap">
         <h1>The Origami Box</h1>
       </div>
       
       {/* 3D Component Centered */}
-      <div id="threejs-container" className="w-3/4 h-3/4" />
+      <div className="row-start-2 col-start-2 flex justify-center items-center relative w-full h-full">
+        <div className="w-[200%] h-[200%]">
+          <div id="threejs-container" className="w-full h-full" />
+        </div>
+      </div>
+      
       
       {/* Text in bottom left */}
-      <div className={`text-center absolute bottom-20 left-20 text-lg font-bold transition-all duration-${TEXTANIMATIONTIME}} transform ${
+      <div className={`text-center row-start-3 col-start-1 text-lg font-bold transition-all mb-10 duration-${TEXTANIMATIONTIME}} transform ${
         isFading? "scale-0" : "scale-100"
       }`}>
         <h3 className="">
         | <br/ > {displayText[0]} <br /> {displayText[1]} <br/ > |
         </h3>
       </div>
-      <div className="absolute bottom-10 right-0 flex justify-end">
-        <div className="flex flex-col justify-center content-center">
+      <div className="row-start-3 col-start-3 flex justify-end">
+        <div className="flex flex-col justify-center content-center mt-15 ml-40">
           <div className="flex justify-center content-center">
             <button
               onClick={prevAnimation}
