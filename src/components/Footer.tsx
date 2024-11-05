@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
 
   useEffect(() => {
     // Fetch data from the endpoint
-    fetch()
+    fetch('')
       .then(response => response.json())
       .then(data => {
         // Transform the data to match CarouselItem structure
