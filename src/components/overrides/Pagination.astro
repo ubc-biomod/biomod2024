@@ -1,0 +1,32 @@
+---
+import type { Props } from "@astrojs/starlight/props";
+import Default from "@astrojs/starlight/components/Pagination.astro";
+
+// Get the base path of the current URL
+const currentBase = Astro.url.pathname.split("/").slice(0, 2).join("/");
+const normalPages = Astro.props.sidebar
+  .filter((item) => item.type === "link")
+  .map((item) => item.href);
+
+// Remove pagination links across product categories.
+if (
+  Astro.props.pagination.prev &&
+  !Astro.props.pagination.prev.href.startsWith(currentBase)
+) {
+  Astro.props.pagination.prev = undefined;
+}
+if (
+  Astro.props.pagination.next &&
+  !Astro.props.pagination.next.href.startsWith(currentBase)
+) {
+  Astro.props.pagination.next = undefined;
+}
+---
+
+{
+  !normalPages.includes("/" + Astro.props.slug) && (
+    <Default {...Astro.props}>
+      <slot />
+    </Default>
+  )
+}
