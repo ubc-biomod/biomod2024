@@ -1,9 +1,42 @@
 import React, { useState, useEffect, Suspense } from "react";
+import { FaInstagram, FaYoutube, FaLinkedin } from "react-icons/fa";
 
 interface CarouselItem {
   image: string; // image
   text: string; // text info shown on hover
 }
+
+const socialLinks = [
+  {
+    href: "https://instagram.com",
+    icon: FaInstagram,
+    label: "Instagram",
+    color: "#000000", // if we want to color icons in future
+  },
+  {
+    href: "https://youtube.com",
+    icon: FaYoutube,
+    label: "YouTube",
+    color: "#000000",
+  },
+  {
+    href: "https://linkedin.com",
+    icon: FaLinkedin,
+    label: "LinkedIn",
+    color: "#000000",
+  },
+];
+
+const additionalLinks = [
+  {
+    href: "https://google.com",
+    label: "Email Us",
+  },
+  {
+    href: "https://google.com",
+    label: "Become a Sponsor",
+  },
+];
 
 
 const Footer: React.FC = () => {
@@ -18,7 +51,9 @@ const Footer: React.FC = () => {
       .then(response => response.json())
       .then(data => {
         // Transform the data to match CarouselItem structure
-        const items = data.map((item: any) => ({
+        const items = data
+        .filter((item: any) => item.name && item.subteam) // filter out items with no name or subteam
+        .map((item: any) => ({
           image: item.image_url || "user.png",  // Fallback image if img_url is empty
           text: `${item.name} - ${item.subteam}`
         }));
@@ -82,62 +117,35 @@ const Footer: React.FC = () => {
           )}
         </div>
 
-        <div className="flex flex-row items-center mt-10">
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="instagram.png"
-              alt="Instagram"
-              className="w-8 h-8 cursor-pointer"
-            />
-          </a>
-          <div className="mx-12">
-            <a
-              href="https://youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="youtube.png"
-                alt="YouTube"
-                className="w-8 h-8 cursor-pointer"
-              />
-            </a>
-          </div>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="linkedin.png"
-              alt="LinkedIn"
-              className="w-8 h-8 cursor-pointer"
-            />
-          </a>
-        </div>
+        <div className="flex flex-row items-center mt-10 gap-10">
+  {socialLinks.map(({ href, icon: Icon, label, color }, index) => (
+    <a
+      key={index}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-8 h-8 cursor-pointer"
+      aria-label={label}
+    >
+      <Icon size={32} color={color} />
+    </a>
+  ))}
+</div>
 
-        <div className="flex flex-row items-center my-10 space-x-8">
+
+      <div className="flex flex-row items-center my-10 gap-8">
+        {additionalLinks.map(({ href, label }, index) => (
           <a
-            href="https://google.com"
+            key={index}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             className="underline text-black"
           >
-            Email Us
+            {label}
           </a>
-          <a
-            href="https://google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-black"
-          >
-            Become a Sponsor
-          </a>
-        </div>
+        ))}
+      </div>
       </div>
     </div>
   );
