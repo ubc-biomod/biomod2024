@@ -1,11 +1,15 @@
 ---
-title: UBC Biomod 2024
+title: "HomePage"
 description: Get started building your docs site with Starlight.
 template: splash
+hero: # THIS IS INTENTIONALLY LEFT BLANK!!
+  tagline: ""
 ---
 
-import { Card, CardGrid } from "@astrojs/starlight/components";
-import ThreeJSComponent from "./threejs.jsx";
+import YouTubeVideo from '../../components/YouTubeVideo.astro';
+import Footer from '../../components/Footer.tsx';
 import Hero from "./hero.jsx";
 
 <Hero client:load />
+
+<YouTubeVideo videoId="dQw4w9WgXcQ" />

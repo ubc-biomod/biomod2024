@@ -1,0 +1,90 @@
+---
+import type { Props } from "@astrojs/starlight/props";
+import SearchDefault from "@astrojs/starlight/components/Search.astro";
+import { BsBoxArrowUpRight } from "react-icons/bs";
+import { IconContext } from "react-icons/lib";
+import HomeButton from "./HomeButton.astro";
+
+const normalPages = Astro.props.sidebar
+  .filter((item) => item.type === "link")
+  .map((item) => item.href);
+const isNormalPage = normalPages.includes("/" + Astro.props.slug);
+const currentBase = Astro.url.pathname.split("/").slice(0, 2).join("/");
+
+let links: { title: string; href: string; base: string }[] = [];
+let callToActionLink = {
+  title: "",
+  href: "",
+  base: "",
+};
+
+Astro.props.sidebar.forEach((item) => {
+  // Normal pages
+  if (item.type === "link" && isNormalPage) {
+    links.push({
+      title: item.label,
+      href: item.href,
+      base: item.href.split("/").slice(0, 2).join("/"),
+    });
+    return;
+  }
+
+  // Docs pages
+  if (item.type !== "group" || item.entries.length === 0) return;
+
+  const firstLink = item.entries.find((e) => e.type === "link");
+  if (!firstLink) return;
+
+  if (item.badge?.text === "Call to Action" && isNormalPage) {
+    callToActionLink.href = firstLink.href;
+    callToActionLink.title = item.label;
+  } else {
+    links.push({
+      title: item.label,
+      href: firstLink.href,
+      base: firstLink.href.split("/").slice(0, 2).join("/"),
+    });
+  }
+});
+---
+
+<div class="flex flex-row text-center bg-transparent">
+  {/* Logo + Team Name */}
+  <HomeButton {...Astro.props} />
+
+  {/* Sidebar Links */}
+  <div
+    class="flex flex-row gap-x-16 grow justify-center items-center basis-1/2"
+  >
+    {
+      links.map((link) => (
+        <a
+          class="group text-navText font-semibold hover:opacity-70 transition duration-300"
+          href={link.href}
+        >
+          {link.title}
+          <div
+            class={`max-w-0 group-hover:left-0 group-hover:max-w-full h-[0.2rem] bg-black
+              transition-all duration-300 origin-center relative 
+              ${link.base === currentBase ? "left-0 max-w-full" : "left-1/2"}`}
+          />
+        </a>
+      ))
+    }
+  </div>
+
+  {
+    isNormalPage ? (
+      <a href={callToActionLink.href} class={`btn-primary`}>
+        <span>{callToActionLink.title}</span>
+        <IconContext.Provider value={{ className: "" }}>
+          <BsBoxArrowUpRight />
+        </IconContext.Provider>
+      </a>
+    ) : (
+      <div class="basis-1/5">
+        <SearchDefault {...Astro.props} />
+      </div>
+    )
+  }
+</div>

@@ -4,56 +4,50 @@ import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    starlight({
-      title: "My Docs",
-      head: [
-        {
-          tag: "link",
-          attrs: {
-            rel: "stylesheet",
-            href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_upward",
-          },
+    integrations: [starlight({
+        title: 'UBC BIOMOD',
+        social: {
+            github: 'https://github.com/withastro/starlight',
         },
-        {
-          tag: "link",
-          attrs: {
-            rel: "stylesheet",
-            href: "https://fonts.googleapis.com/icon?family=Material+Icons",
-          },
+        sidebar: [
+            {
+                label: 'Home',
+                link: '/',
+                badge: 'Hidden'
+            },
+            {
+                label: 'Ideas',
+                autogenerate: { directory: 'ideas' },
+            },
+            {
+                label: 'ELSI',
+                autogenerate: { directory: 'elsi' },
+            },
+            {
+                label: 'Lab Notebook',
+                autogenerate: { directory: 'lab-notebook' },
+                badge: {
+                    text: 'Call to Action',
+                }
+            },
+            {
+                label: 'Sponsors',
+                link: '/sponsors',
+                badge: 'Hidden' 
+            },
+        ],
+        components: {
+            Header: './src/components/overrides/Header.astro',
+            Sidebar: './src/components/overrides/Sidebar.astro',
+            Pagination: './src/components/overrides/Pagination.astro',
+            Footer: './src/components/overrides/FooterWrapper.astro',
         },
-        {
-          tag: "meta",
-          attrs: {
-            name: "viewport",
-            content: "width=device-width, initial-scale=1.0",
-          },
-        },
-      ],
-      customCss: [
-        // Relative path to your custom CSS file
-        "./src/styles/globals.css",
-      ],
-      social: {
-        github: "https://github.com/withastro/starlight",
-      },
-      sidebar: [
-        {
-          label: "Guides",
-          items: [
-            // Each item here is one entry in the navigation menu.
-            { label: "Example Guide", slug: "guides/example" },
-          ],
-        },
-        {
-          label: "Reference",
-          autogenerate: { directory: "reference" },
-        },
-      ],
-    }),
-    tailwind(),
-    react(),
-  ],
+        customCss: [
+            './src/tailwind.css',
+        ]
+        }), tailwind(), react()],
 });
