@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { FaInstagram, FaYoutube, FaLinkedin } from "react-icons/fa";
+import { type MarqueeProps } from "react-fast-marquee";
 
 interface CarouselItem {
   image: string; // image
@@ -42,7 +43,7 @@ const additionalLinks = [
 const Footer: React.FC = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [activeText, setActiveText] = useState<string>("");
-  const [Marquee, setMarquee] = useState<any>(null);
+  const [Marquee, setMarquee] = useState<React.FC<MarqueeProps> | null>(null);
   const [carouselItems, setCarouselItems] = useState<CarouselItem[]>([]);
 
   useEffect(() => {
@@ -78,13 +79,15 @@ const Footer: React.FC = () => {
 
   return (
     <div className="not-content relative flex flex-col items-center">
-      <div className="flex flex-col bg-[#d9d9d9] items-center absolute w-screen">
-        <h1 className="text-2xl md:text-4xl text-black font-bold mt-10">
-          Meet the UBC BIOMOD Team
-        </h1>
-        <div className="h-12">
-          <h4 className="text-md text-black mt-4 mb-1">{activeText}</h4>
-        </div>
+      <div className="flex flex-col bg-[#d9d9d9] items-center absolute w-screen gap-y-6 py-4">
+        {carouselItems.length !== 0 && (
+          <div className="flex flex-col items-center">
+            <h1 className="text-2xl md:text-4xl text-black font-bold">
+              Meet the UBC BIOMOD Team
+            </h1>
+            <h4 className="h-6 text-md text-black">{activeText}</h4>
+          </div>
+        )}
 
         <div className="flex w-full">
           {Marquee ? (
@@ -117,35 +120,34 @@ const Footer: React.FC = () => {
           )}
         </div>
 
-        <div className="flex flex-row items-center mt-10 gap-10">
-  {socialLinks.map(({ href, icon: Icon, label, color }, index) => (
-    <a
-      key={index}
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-8 h-8 cursor-pointer"
-      aria-label={label}
-    >
-      <Icon size={32} color={color} />
-    </a>
-  ))}
-</div>
+        <div className="flex flex-row items-center gap-x-10">
+          {socialLinks.map(({ href, icon: Icon, label, color }, index) => (
+            <a
+              key={index}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-8 h-8 cursor-pointer"
+              aria-label={label}
+            >
+              <Icon className="hover:opacity-60" size={32} color={color} />
+            </a>
+          ))}
+        </div>
 
-
-      <div className="flex flex-row items-center my-10 gap-8">
-        {additionalLinks.map(({ href, label }, index) => (
-          <a
-            key={index}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-black"
-          >
-            {label}
-          </a>
-        ))}
-      </div>
+        <div className="flex flex-row items-center gap-x-8">
+          {additionalLinks.map(({ href, label }, index) => (
+            <a
+              key={index}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-black"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );
