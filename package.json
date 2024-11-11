@@ -9,7 +9,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "prepare": "husky && husky install",
-    "type-check": "tsc --pretty --noEmit"
+    "type-check": "tsc --pretty --noEmit",
+    "check": "prettier --check \"**/*.{js,ts,tsx}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx}\""
   },
   "husky": {
     "hooks": {
