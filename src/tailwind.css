@@ -2,8 +2,7 @@
 /* IT WILL BREAK THE STYLING!!! */
 
 .btn-primary {
-  @apply 
-      flex items-center gap-y-2 gap-x-6 rounded-full bg-black text-white border border-black duration-200 px-5 font-semibold hover:bg-transparent hover:text-black;
+  @apply flex items-center gap-y-2 gap-x-6 rounded-full bg-black text-white border border-black duration-200 px-5 font-semibold hover:bg-transparent hover:text-black;
 }
 
 .header {
