@@ -39,41 +39,43 @@ const additionalLinks = [
   },
 ];
 
-
 const Footer: React.FC = () => {
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [_, setHoverIndex] = useState<number | null>(null);
   const [activeText, setActiveText] = useState<string>("");
   const [Marquee, setMarquee] = useState<React.FC<MarqueeProps> | null>(null);
   const [carouselItems, setCarouselItems] = useState<CarouselItem[]>([]);
 
   useEffect(() => {
     // Fetch data from the endpoint
-    fetch('')
-      .then(response => response.json())
-      .then(data => {
+    fetch("")
+      .then((response) => response.json())
+      .then((data) => {
         // Transform the data to match CarouselItem structure
         const items = data
-        .filter((item: any) => item.name && item.subteam) // filter out items with no name or subteam
-        .map((item: any) => ({
-          image: item.image_url || "user.png",  // Fallback image if img_url is empty
-          text: `${item.name} - ${item.subteam}`
-        }));
-        
+          .filter((item: any) => item.name && item.subteam) // filter out items with no name or subteam
+          .map((item: any) => ({
+            image: item.image_url || "user.png", // Fallback image if img_url is empty
+            text: `${item.name} - ${item.subteam}`,
+          }));
+
         const THRESHOLD = 15;
         // Check if the items are below the threshold, repeat if needed
         setCarouselItems(
           items.length < THRESHOLD
-            ? Array.from({ length: Math.ceil(THRESHOLD / items.length) }, () => items).flat()
-            : items
+            ? Array.from(
+                { length: Math.ceil(THRESHOLD / items.length) },
+                () => items,
+              ).flat()
+            : items,
         );
       })
-      .catch(error => console.error("Error fetching carousel data:", error));
+      .catch((error) => console.error("Error fetching carousel data:", error));
   }, []);
 
   useEffect(() => {
     // Dynamically import Marquee on the client side
     import("react-fast-marquee").then((module) =>
-      setMarquee(() => module.default)
+      setMarquee(() => module.default),
     );
   }, []);
 
