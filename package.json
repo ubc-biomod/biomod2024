@@ -8,7 +8,14 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "prepare": "husky && husky install"
+    "prepare": "husky && husky install",
+    "type-check": "tsc --pretty --noEmit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run type-check"
+    }
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -32,10 +39,18 @@
     "globals": "^15.12.0",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
-    "prettier": "3.3.3",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
     "typescript-eslint": "^8.13.0"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "eslint"
+    ],
+    "**/*.ts?(x)": "npm run type-check",
+    "*.json": [
+      "prettier --write"
+    ]
   }
 }
