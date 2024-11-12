@@ -11,9 +11,10 @@ export default function ThreeJSComponent() {
   const [animationNum, setAnimation] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [displayText, setDisplayText] = useState(["Begin", "Scroll to Proceed"]);
-  const textDict = [["Phase 1", "Box Formation"], ["Phase 2", "Open Box"], ["Phase 3", "Containerize Pill"], ["Phase 4" ,"Close Box"]];
+  const textDict = [["Phase 1", "Box Formation"], ["Phase 2", "Antibody Docking"], ["Phase 3", "Open Box"]];
 
-  const numOfAnimations = 4;
+
+  const numOfAnimations = 3;
   const mixerRef = useRef(null); // Store the mixer ref here
   const actionsRef = useRef({}); // Store animation actions in an object
   const TEXTANIMATIONTIME = 500;
@@ -46,7 +47,7 @@ export default function ThreeJSComponent() {
         // Center the model by calculating its bounding box and re-positioning it
         const box = new THREE.Box3().setFromObject(model);
         const center = box.getCenter(new THREE.Vector3());
-        model.position.sub(center.multiplyScalar(0.4)); // Offset the model to the center
+        model.position.sub(center.multiplyScalar(0)); // Offset the model to the center
 
         // model.geometry.center();
 
@@ -59,26 +60,16 @@ export default function ThreeJSComponent() {
         gltf.animations.forEach((clip) => {
           const action = mixerRef.current.clipAction(clip);
           action.setLoop(THREE.LoopOnce, 1);
+          action.clampWhenFinished = true;
           actionsRef.current[clip.name] = action;
+          if (clip.name === "Begin") {
+            console.log("Begin");
+            action.play();
+          }
         });
 
         // model.rotation.y = Math.PI / -2;
 
-        // let meshIndex = 0;
-        // model.traverse((child) => {
-        //   if (child.isMesh) {
-        //     if (meshIndex === 0) {
-        //       child.material = new THREE.MeshStandardMaterial({
-        //         color: 0xd1cdcd,
-        //       });
-        //     } else {
-        //       child.material = new THREE.MeshStandardMaterial({
-        //         color: 0x4f4f4f,
-        //       });
-        //     }
-        //     meshIndex++;
-        //   }
-        // });
       },
       function (error) {
         console.error("An error happened", error);
@@ -111,9 +102,6 @@ export default function ThreeJSComponent() {
     });
 
 
-    // window.scrollTo(0, 200)
-
-
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
@@ -139,8 +127,8 @@ export default function ThreeJSComponent() {
     setTimeout(() => {
       toggleScrollLock(true);
     }, 1000);
-    
 
+    
     // Cleanup on component unmount
     return () => {
       container.removeChild(renderer.domElement);
@@ -157,11 +145,15 @@ export default function ThreeJSComponent() {
   };
 
   // Function to play the selected animation
-  const playAnimation = (animationName) => {
+  const playAnimation = (animationName, speed) => {
 
     stopAllAnimations();
     if (actionsRef.current[animationName]) {
-      actionsRef.current[animationName].reset().play(); // Play the selected animation
+      // const action = mixerRef.current.clipAction(animationName);
+      // action.paused = false;
+      // action.setLoop(THREE.LoopOnce, 1);  
+      mixerRef.current.timeScale = speed;
+      actionsRef.current[animationName].reset().play(); // Play the selected animatio
     }
     setIsFading(true);
       const timeout = setTimeout(() => {
@@ -184,14 +176,13 @@ export default function ThreeJSComponent() {
     setAnimation((prevState) => {
       const newState = prevState > 0 ? prevState - 1 : 0;
       if (newState === 0) {
-        stopAllAnimations(); // Stop all animations for idle state
+        playAnimation("Begin", 1);
         setIsFading(true)
         setDisplayText(["Begin", "Scroll to Proceed"]);
         setIsFading(true);
-        playAnimation("None");
       } else {
+        playAnimation("Phase " + newState, 1); // Play the corresponding animation
         setDisplayText(textDict[newState - 1]);
-        playAnimation(Object.keys(actionsRef.current)[newState - 1]); // Play the corresponding animation
       }
       return newState;
     });
@@ -206,10 +197,7 @@ export default function ThreeJSComponent() {
         return prevState;
       } else if (newState > 0) {
         setDisplayText(textDict[newState - 1]);
-        // if (Object.keys(actionsRef.current).length >= newState) {
-        //   playAnimation(Object.keys(actionsRef.current)[newState - 1]); // Play the corresponding animation
-        // }
-        playAnimation(Object.keys(actionsRef.current)[newState - 1]);
+        playAnimation("Phase " + newState, 1);
       }
       return newState;
     });
@@ -230,7 +218,7 @@ export default function ThreeJSComponent() {
       
       {/* 3D Component Centered */}
       <div className="row-start-2 col-start-1 col-span-3 flex justify-center items-center relative w-full h-full">
-        <div className="w-[200%] h-[200%]">
+        <div className="w-[80%] h-[250%]">
           <div id="threejs-container" className="w-full h-full" />
         </div>
       </div>
