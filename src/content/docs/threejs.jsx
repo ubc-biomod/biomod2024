@@ -40,13 +40,15 @@ export default function ThreeJSComponent() {
     let model;
 
     loader.load(
-      "/assets/fridge_w_2_animation.glb", // Ensure this path is correct
+      "/assets/box_for_website.glb", // Ensure this path is correct
       function (gltf) {
         model = gltf.scene;
         // Center the model by calculating its bounding box and re-positioning it
         const box = new THREE.Box3().setFromObject(model);
         const center = box.getCenter(new THREE.Vector3());
-        model.position.sub(center); // Offset the model to the center
+        model.position.sub(center.multiplyScalar(0.4)); // Offset the model to the center
+
+        // model.geometry.center();
 
         scene.add(model);
 
@@ -60,30 +62,31 @@ export default function ThreeJSComponent() {
           actionsRef.current[clip.name] = action;
         });
 
-        model.rotation.y = Math.PI / -2;
+        // model.rotation.y = Math.PI / -2;
 
-        let meshIndex = 0;
-        model.traverse((child) => {
-          if (child.isMesh) {
-            if (meshIndex === 0) {
-              child.material = new THREE.MeshStandardMaterial({
-                color: 0xd1cdcd,
-              });
-            } else {
-              child.material = new THREE.MeshStandardMaterial({
-                color: 0x4f4f4f,
-              });
-            }
-            meshIndex++;
-          }
-        });
+        // let meshIndex = 0;
+        // model.traverse((child) => {
+        //   if (child.isMesh) {
+        //     if (meshIndex === 0) {
+        //       child.material = new THREE.MeshStandardMaterial({
+        //         color: 0xd1cdcd,
+        //       });
+        //     } else {
+        //       child.material = new THREE.MeshStandardMaterial({
+        //         color: 0x4f4f4f,
+        //       });
+        //     }
+        //     meshIndex++;
+        //   }
+        // });
       },
       function (error) {
         console.error("An error happened", error);
       }
     );
 
-    camera.position.z = 4.5;
+
+    camera.position.z = 35;
 
     // Lighting
     const ambientLight = new THREE.AmbientLight(0x404040, 1); // soft white light
@@ -102,8 +105,8 @@ export default function ThreeJSComponent() {
 
       // Update model rotation based on mouse position
       if (model) {
-        model.rotation.y = (mouseX) * Math.PI * 0.3;
-        model.rotation.x = mouseY * Math.PI * -0.3;
+        model.rotation.y = (mouseX) * Math.PI * 0.6;
+        model.rotation.x = mouseY * Math.PI * -0.6;
       }
     });
 
@@ -226,7 +229,7 @@ export default function ThreeJSComponent() {
       </div>
       
       {/* 3D Component Centered */}
-      <div className="row-start-2 col-start-2 flex justify-center items-center relative w-full h-full">
+      <div className="row-start-2 col-start-1 col-span-3 flex justify-center items-center relative w-full h-full">
         <div className="w-[200%] h-[200%]">
           <div id="threejs-container" className="w-full h-full" />
         </div>
@@ -248,7 +251,7 @@ export default function ThreeJSComponent() {
               onClick={prevAnimation}
               className="text-black hover:text-white -600 transition duration-300 ease-in-out"
             >
-              <span class="material-icons">arrow_upward</span>
+              <span className="material-icons">arrow_upward</span>
             </button>
           </div>
           <div className="flex justify-center content-center"> 
@@ -256,7 +259,7 @@ export default function ThreeJSComponent() {
               onClick={nextAnimation}
               className="text-black hover:text-white -600 transition duration-300 ease-in-out"
             >
-              <span class="material-icons">arrow_downward</span>
+              <span className="material-icons">arrow_downward</span>
             </button>
           </div>
           
