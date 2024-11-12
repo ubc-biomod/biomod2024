@@ -9,7 +9,7 @@ export default function Hero() {
       <div className="flex flex-col items-center justify-center mt-5">
         <ThreeJSComponent/>
 
-        {/* Centered YouTube Iframe */}
+        {/* Centered YouTube Iframe
         <div className="grid grid-cols-1 w-full place-items-center">
           <div className="aspect-video flex justify-center mt-30 md:mt-10 w-3/4">
             <iframe
@@ -18,7 +18,7 @@ export default function Hero() {
               allowFullScreen
             ></iframe>
           </div>
-        </div> 
+        </div>  */}
       </div>
     );
 }
