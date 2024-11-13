@@ -1,5 +1,8 @@
 /* DO NOT INCLUDE @tailwind base, components, utilities */
 /* IT WILL BREAK THE STYLING!!! */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .btn-primary {
   @apply flex items-center gap-y-2 gap-x-6 rounded-full bg-black text-white border border-black duration-200 px-5 font-semibold hover:bg-transparent hover:text-black;
@@ -13,6 +16,10 @@
 .hero {
   /* --sl-color-hairline: transparent; */
   display: none;
+}
+
+a {
+  @apply text-black no-underline
 }
 
 /* From https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css */

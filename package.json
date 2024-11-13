@@ -24,6 +24,7 @@
     "@astrojs/netlify": "^5.5.4",
     "@astrojs/react": "^3.6.2",
     "@astrojs/starlight": "^0.28.3",
+    "@astrojs/starlight-tailwind": "^2.0.3",
     "@astrojs/tailwind": "^5.1.2",
     "@types/jsdom": "^21.1.7",
     "@types/react": "^18.3.12",
