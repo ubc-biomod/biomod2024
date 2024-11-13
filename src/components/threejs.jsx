@@ -77,7 +77,7 @@ export default function ThreeJSComponent() {
     );
 
 
-    camera.position.z = 35;
+    camera.position.z = 40;
 
     // Lighting
     const ambientLight = new THREE.AmbientLight(0x404040, 1); // soft white light
@@ -209,7 +209,7 @@ export default function ThreeJSComponent() {
     
     <div className="grid grid-cols-1 h-screen mb-10 mt-100 place-items-center">
     {/* Circle container */}
-    <div className="grid grid-rows-3 grid-cols-3 aspect-square w-3/4 rounded-full bg-gradient-to-br from-amber-200 to-pink-700 p-30 place-items-center gap-x-4">
+    <div className="grid grid-rows-3 grid-cols-3 aspect-square w-3/4 rounded-full gradient-background p-30 place-items-center gap-x-4">
       
       {/* Title in top right */}
       <div className="text-center row-start-1 col-start-3 text-lg font-bold whitespace-nowrap">

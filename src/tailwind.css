@@ -2,8 +2,7 @@
 /* IT WILL BREAK THE STYLING!!! */
 
 .btn-primary {
-  @apply 
-      flex items-center gap-y-2 gap-x-6 rounded-full bg-black text-white border border-black duration-200 px-5 font-semibold hover:bg-transparent hover:text-black;
+  @apply flex items-center gap-y-2 gap-x-6 rounded-full bg-black text-white border border-black duration-200 px-5 font-semibold hover:bg-transparent hover:text-black;
 }
 
 .header {
@@ -14,4 +13,20 @@
 .hero {
   /* --sl-color-hairline: transparent; */
   display: none;
+}
+
+.gradient-background {
+  background: radial-gradient(circle, #dd4676 10%, transparent 60%);
+}
+
+.blur {
+  backdrop-filter: blur(10px);
+  clip-path: circle(40%);
+}
+
+.background-image {
+  background-image: url("./public/particles.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
