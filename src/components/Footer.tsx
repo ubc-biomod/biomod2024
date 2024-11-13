@@ -3,8 +3,8 @@ import { FaInstagram, FaYoutube, FaLinkedin } from "react-icons/fa";
 import { type MarqueeProps } from "react-fast-marquee";
 
 interface CarouselItem {
-  image: string; // image
-  text: string; // text info shown on hover
+  image: string;
+  text: string;
 }
 
 const socialLinks = [
@@ -12,7 +12,7 @@ const socialLinks = [
     href: "https://instagram.com",
     icon: FaInstagram,
     label: "Instagram",
-    color: "#000000", // if we want to color icons in future
+    color: "#000000",
   },
   {
     href: "https://youtube.com",
@@ -40,26 +40,31 @@ const additionalLinks = [
 ];
 
 const Footer: React.FC = () => {
-  const [_, setHoverIndex] = useState<number | null>(null);
-  const [activeText, setActiveText] = useState<string>("");
+  const [, setHoverIndex] = useState<number | null>(null);
+  const [activeText, setActiveText] = useState<{
+    name: string;
+    subteam: string;
+  } | null>(null);
   const [Marquee, setMarquee] = useState<React.FC<MarqueeProps> | null>(null);
   const [carouselItems, setCarouselItems] = useState<CarouselItem[]>([]);
 
   useEffect(() => {
-    // Fetch data from the endpoint
     fetch("")
       .then((response) => response.json())
       .then((data) => {
-        // Transform the data to match CarouselItem structure
         const items = data
-          .filter((item: any) => item.name && item.subteam) // filter out items with no name or subteam
-          .map((item: any) => ({
-            image: item.image_url || "user.png", // Fallback image if img_url is empty
-            text: `${item.name} - ${item.subteam}`,
-          }));
+          .filter(
+            (item: { name: string; subteam: string }) =>
+              item.name && item.subteam,
+          )
+          .map(
+            (item: { name: string; subteam: string; image_url?: string }) => ({
+              image: item.image_url || "user.png",
+              text: `${item.name} - ${item.subteam}`,
+            }),
+          );
 
         const THRESHOLD = 15;
-        // Check if the items are below the threshold, repeat if needed
         setCarouselItems(
           items.length < THRESHOLD
             ? Array.from(
@@ -73,7 +78,6 @@ const Footer: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Dynamically import Marquee on the client side
     import("react-fast-marquee").then((module) =>
       setMarquee(() => module.default),
     );
@@ -87,7 +91,14 @@ const Footer: React.FC = () => {
             <h1 className="text-2xl md:text-4xl text-black font-bold">
               Meet the UBC BIOMOD Team
             </h1>
-            <h4 className="h-6 text-md text-black">{activeText}</h4>
+            <h4 className="h-6 text-md text-black">
+              {activeText && (
+                <>
+                  <span className="font-bold">{activeText.name}</span>
+                  <span> - {activeText.subteam}</span>
+                </>
+              )}
+            </h4>
           </div>
         )}
 
@@ -95,26 +106,32 @@ const Footer: React.FC = () => {
           {Marquee ? (
             <Suspense fallback={<div>Loading...</div>}>
               <Marquee pauseOnHover={true}>
-                {carouselItems.map((item, index) => (
-                  <div
-                    key={index}
-                    className="w-24 h-24 rounded-2xl flex items-center justify-center cursor-pointer relative mx-2"
-                    onMouseEnter={() => {
-                      setHoverIndex(index);
-                      setActiveText(item.text);
-                    }}
-                    onMouseLeave={() => {
-                      setHoverIndex(null);
-                      setActiveText("");
-                    }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={`Image ${index}`}
-                      className="rounded-2xl w-full h-full object-cover opacity-70 hover:opacity-100"
-                    />
-                  </div>
-                ))}
+                {carouselItems.map((item, index) => {
+                  const [name, subteam] = item.text.split(" - ");
+                  return (
+                    <div
+                      key={index}
+                      className="w-24 h-24 rounded-2xl flex items-center justify-center cursor-pointer relative mx-2"
+                      onMouseEnter={() => {
+                        setHoverIndex(index);
+                        setActiveText({
+                          name: name || "",
+                          subteam: subteam || "",
+                        });
+                      }}
+                      onMouseLeave={() => {
+                        setHoverIndex(null);
+                        setActiveText(null);
+                      }}
+                    >
+                      <img
+                        src={item.image}
+                        alt={`Image ${index}`}
+                        className="rounded-2xl w-full h-full object-cover opacity-85 hover:opacity-100"
+                      />
+                    </div>
+                  );
+                })}
               </Marquee>
             </Suspense>
           ) : (
