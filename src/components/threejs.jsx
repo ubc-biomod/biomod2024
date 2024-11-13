@@ -127,8 +127,6 @@ export default function ThreeJSComponent() {
     setTimeout(() => {
       toggleScrollLock(true);
     }, 1000);
-
-    
     // Cleanup on component unmount
     return () => {
       container.removeChild(renderer.domElement);
