@@ -54,7 +54,9 @@ export default defineConfig({
       },
       customCss: ["./src/tailwind.css"],
     }),
-    tailwind(),
+    tailwind({
+      applyBaseStyles: false
+    }),
     react(),
   ],
   vite: {
