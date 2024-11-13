@@ -38,14 +38,15 @@ The primary degradation mechanism of the DNA nanostructure box was assumed to be
 We modeled each transport phenomena and reaction interaction as a series of first-order reactions with respect to the concentration of drug in the compartments. Transport phenomena refers to movement of molecules from one compartment to another (i.e. circulatory system to hepatic system). Reactions refer to irreversible chemical alterations to the AND box. For the reactions, we assumed the limiting factor is the availability of our AND box and, hence, the compartment's degradation process as a first-order reaction. Additionally, mass transfer between compartments was assumed to be linear due to the diffusive nature of the transport (details discussed later). This means that our model contains a series of first-order reactions with specific rate constants (K). Renal clearance was modeled as a unidirectional process, and we assumed that the tumor retained all nanoparticles due to the enhanced permeability and retention (EPR) effect (Wu, 2012). This gave rise to the following system of 11 ordinary differential equations and 24 parameters.
 
 <Steps>
+
 1. Renal Compartments:
 
-    ```math
-    \begin{align*}
-    V_r \cdot \frac{dB_r}{dt} &= V_c \cdot K_{cr}^B \cdot B_c - V_r \cdot k_{e}^B \cdot B_r \\
-    V_r \cdot \frac{dD_r}{dt} &= V_c \cdot K_{cr}^D \cdot D_c - V_r \cdot k_{e}^D \cdot D_r
-    \end{align*}
-    ```
+   ```math
+   \begin{align*}
+   V_r \cdot \frac{dB_r}{dt} &= V_c \cdot K_{cr}^B \cdot B_c - V_r \cdot k_{e}^B \cdot B_r \\
+   V_r \cdot \frac{dD_r}{dt} &= V_c \cdot K_{cr}^D \cdot D_c - V_r \cdot k_{e}^D \cdot D_r
+   \end{align*}
+   ```
 
 1. Circulatory Compartments:
 
@@ -92,7 +93,7 @@ We modeled each transport phenomena and reaction interaction as a series of firs
 
    ```
 
-   </Steps>
+</Steps>
 
 #### Parameters:
 
@@ -284,12 +285,14 @@ C(x, y, t_{i+1}) &= C(x, y, t_i) + \frac{\partial C}{\partial t} \cdot \Delta t
 To solve the model, a custom python script was created and the discretization techniques described above were employed. Tissue cross sections were generated like those below using stochastic techniques and gaussian filters. Some in these images notable features to account for are:
 
 <Steps>
+
 1. Dark purple areas represent the nuclei of cells.
 
 1. Pink regions show the extracellular matrix and cytoplasm.
 
 1. White spaces usually represent media.
-   </Steps>
+
+</Steps>
 
 **_Determining Coefficients_**
 
