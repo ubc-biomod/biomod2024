@@ -6,7 +6,7 @@ import tailwind from "@astrojs/tailwind";
 
 import react from "@astrojs/react";
 
-import netlify from '@astrojs/netlify';
+import netlify from "@astrojs/netlify";
 
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
@@ -55,7 +55,7 @@ export default defineConfig({
       customCss: ["./src/tailwind.css"],
     }),
     tailwind({
-      applyBaseStyles: false
+      applyBaseStyles: false,
     }),
     react(),
   ],

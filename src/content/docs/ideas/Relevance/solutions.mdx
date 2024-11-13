@@ -1,25 +1,38 @@
 ---
-title: The Problem and our Solution 
-description: The Problem and our Solution 
+title: The Problem and our Solution
+description: The Problem and our Solution
 ---
 
-import ReferenceList from '@/components/ReferenceList.astro'
+import ReferenceList from "@/components/ReferenceList.astro";
 
 ## The Problem
-Current prostate cancer immunotherapy approaches face several challenges that have so far limited their effectiveness. The tumor microenvironment in prostate cancer is immunosuppressive, with fewer antitumor CD8+ T cells present in prostate tumors compared to other cancers (Cha et al., 2020). Prostate cancer is also a generally heterogeneous disease, making it more difficult to identify universally effective treatments as patient responses often differ from patient to patient (Sridaran et al., 2023). Additionally, prostate cancer cells often have a low number of mutations,  making the task of finding targetable tumor antigens that are absent from healthy tissue much more challenging (Sridaran et al., 2023). 
+
+Current prostate cancer immunotherapy approaches face several challenges that have so far limited their effectiveness. The tumor microenvironment in prostate cancer is immunosuppressive, with fewer antitumor CD8+ T cells present in prostate tumors compared to other cancers (Cha et al., 2020). Prostate cancer is also a generally heterogeneous disease, making it more difficult to identify universally effective treatments as patient responses often differ from patient to patient (Sridaran et al., 2023). Additionally, prostate cancer cells often have a low number of mutations, making the task of finding targetable tumor antigens that are absent from healthy tissue much more challenging (Sridaran et al., 2023).
 
 ## Our Solution
-In the face of these challenges, one new approach that has shown promising in vitro and in vivo results is the development of bispecific T-cell engagers (BiTEs) (Sridaran et al., 2023). BiTEs can bind to both a tumor antigen and  the CD3 receptor on T-cells, thereby bringing the T-cell close to the cancer cell and causing its death. Essentially, they identify and mark cancer cells for the immune system.
+
+In the face of these challenges, one new approach that has shown promising in vitro and in vivo results is the development of bispecific T-cell engagers (BiTEs) (Sridaran et al., 2023). BiTEs can bind to both a tumor antigen and the CD3 receptor on T-cells, thereby bringing the T-cell close to the cancer cell and causing its death. Essentially, they identify and mark cancer cells for the immune system.
 
 Our project is to develop a DNA origami box that functions as a BiTE to recruit T-cells to prostate cancer cells, allowing for selective targeting of prostate cancer cells while minimizing off-target effects. To identify prostate cancer cells, we target the PSMA (prostate specific membrane antigen) protein, which is overexpressed in prostate cancer cells compared to normal prostate tissue, with its expression correlated with tumor stage, presence of metastases, and ultimately lethality (Fan et al., 2016; Tsourlakis et al., 2015). Importantly, PSMA expression is also highly homogenous in prostate cancer (Tsourlakis et al., 2015), a generally heterogeneous disease as previously mentioned. Our box is hybridized to the A10-3.2 oligonucleotide aptamer which targets PSMA, with our choice of an aptamer due to their small size, high stability, and high targeting specificity (Fan et al., 2016; Pan et al., 2018). The box is also loaded with an anti-CD3 antibody which binds to the CD3 receptor on T-cells. With these components, our box migrates towards prostate cancer cells and recruits T-cells to its vicinity where they eradicate the prostate cancer cells.
-
 
 ## References
 
 <ReferenceList>
-Cha, H. R., Lee, J. H., & Ponnazhagan, S. (2020). Revisiting Immunotherapy: A Focus on Prostate Cancer. Cancer research, 80(8), 1615–1623. https://doi.org/10.1158/0008-5472.CAN-19-2948
-Fan, X., Guo, Y., Wang, L., Xiong, X., Zhu, L., & Fang, K. (2016). Diagnosis of prostate cancer using anti-PSMA aptamer A10-3.2-oriented lipid nanobubbles. International Journal of Nanomedicine, 11, 3939–3950. https://doi.org/10.2147/IJN.S112951
-Pan, Q., Luo, F., Liu, M., & Zhang, X. L. (2018). Oligonucleotide aptamers: promising and powerful diagnostic and therapeutic tools for infectious diseases. The Journal of Infection, 77(2), 83–98. https://doi.org/10.1016/j.jinf.2018.04.007
-Sridaran, D., Bradshaw, E., DeSelm, C., Pachynski, R., Mahajan, K., & Mahajan, N. P. (2023). Prostate cancer immunotherapy: Improving clinical outcomes with a multi-pronged approach. Cell Reports Medicine, 4(10), 101199. https://doi.org/10.1016/j.xcrm.2023.101199
-Tsourlakis, M. C., Klein, F., Kluth, M., Quaas, A., Graefen, M., Haese, A., Simon, R., Sauter, G., Schlomm, T., & Minner, S. (2015). PSMA expression is highly homogenous in primary prostate cancer. Applied immunohistochemistry & molecular morphology : AIMM, 23(6), 449–455. https://doi.org/10.1097/PAI.0000000000000110
+  Cha, H. R., Lee, J. H., & Ponnazhagan, S. (2020). Revisiting Immunotherapy: A
+  Focus on Prostate Cancer. Cancer research, 80(8), 1615–1623.
+  https://doi.org/10.1158/0008-5472.CAN-19-2948 Fan, X., Guo, Y., Wang, L.,
+  Xiong, X., Zhu, L., & Fang, K. (2016). Diagnosis of prostate cancer using
+  anti-PSMA aptamer A10-3.2-oriented lipid nanobubbles. International Journal of
+  Nanomedicine, 11, 3939–3950. https://doi.org/10.2147/IJN.S112951 Pan, Q., Luo,
+  F., Liu, M., & Zhang, X. L. (2018). Oligonucleotide aptamers: promising and
+  powerful diagnostic and therapeutic tools for infectious diseases. The Journal
+  of Infection, 77(2), 83–98. https://doi.org/10.1016/j.jinf.2018.04.007
+  Sridaran, D., Bradshaw, E., DeSelm, C., Pachynski, R., Mahajan, K., & Mahajan,
+  N. P. (2023). Prostate cancer immunotherapy: Improving clinical outcomes with
+  a multi-pronged approach. Cell Reports Medicine, 4(10), 101199.
+  https://doi.org/10.1016/j.xcrm.2023.101199 Tsourlakis, M. C., Klein, F.,
+  Kluth, M., Quaas, A., Graefen, M., Haese, A., Simon, R., Sauter, G., Schlomm,
+  T., & Minner, S. (2015). PSMA expression is highly homogenous in primary
+  prostate cancer. Applied immunohistochemistry & molecular morphology : AIMM,
+  23(6), 449–455. https://doi.org/10.1097/PAI.0000000000000110
 </ReferenceList>
