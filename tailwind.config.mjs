@@ -7,6 +7,9 @@ export default {
         navText: "1.5rem",
         title: "3.5rem",
       },
+      backgroundImage: {
+        "particle-pattern": "url('/particles.png')",
+      }
     },
   },
   plugins: [],
