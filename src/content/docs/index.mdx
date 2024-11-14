@@ -11,6 +11,9 @@ import YouTubeVideo from "../../components/YouTubeVideo.astro";
 import Footer from "../../components/Footer.tsx";
 import Hero from "../../components/hero.jsx";
 
-<Hero client:load />
-
-<YouTubeVideo videoId="dQw4w9WgXcQ" />
+<div class="flex justify-center">
+  <div class="w-[100%]">
+    <Hero client:load />
+    <YouTubeVideo videoId="dQw4w9WgXcQ" />
+  </div>
+</div>

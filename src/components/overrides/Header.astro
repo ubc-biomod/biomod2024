@@ -11,6 +11,7 @@ const normalPages = Astro.props.sidebar
 const isNormalPage = normalPages.includes("/" + Astro.props.slug);
 const currentBase = Astro.url.pathname.split("/").slice(0, 2).join("/");
 
+
 let links: { title: string; href: string; base: string }[] = [];
 let callToActionLink = {
   title: "",
