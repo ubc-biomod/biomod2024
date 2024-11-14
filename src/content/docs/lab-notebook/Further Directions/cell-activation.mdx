@@ -2,3 +2,97 @@
 title: T-cell Activation
 description: T-cell Activation
 ---
+
+import ReferenceList from "@/components/ReferenceList.astro";
+
+To test if our DNA box would be an effective cancer treatment, we will measure how well it activates T-cells. Flow cytometry will be used to examine levels of T-cell activation by the markers CD69, CD134 (OX-40), and CD137 (4-1BB). These are important proteins expressed by T-cells when activated, so the primary objective of this experiment is to determine whether more T-cells exhibit these markers when co-cultured with cancer cell lines in the presence of the DNA box compared to cultures without the DNA box.
+
+**Aim:** To determine if our immune engager box is successful at increasing T-cell activation
+
+## Techniques
+
+### Flow Cytometry
+
+Flow cytometry is a technique used for detecting physical characteristics of cells/particles, such as cell size, complexity, and specific proteins (McKinnon, 2018). It works by first staining samples with fluorescent antibodies that are specific to a molecular structure of interest. In the case of our experiment, the antibodies would bind to various T-cell surface proteins, resulting in cells expressing those proteins to be stained with fluorescent antibodies. Then, the cells would be passed through a flow cytometer, where they first flow through a laser beam that excites the fluorescent antibodies present on the cells, causing them to emit light. The flow cytometer then detects that emitted light and provides data on how many cells are expressing the proteins of interest. Apart from detecting specific cell structures, flow cytometers can also measure the light scattering of the cells to determine their size and granularity.
+
+| Reagent Name                                                        | Supplier                | Catalog Number |
+| ------------------------------------------------------------------- | ----------------------- | -------------- |
+| eBioscience™ Immune Response T Cell Activation Induced Markers Kit | ThermoFisher Scientific | A53424         |
+
+## Methods
+
+Our protocol is based on the [ThermoFischer eBioscience™ Immune Response T Cell
+Activation Induced Markers Kit](https://www.thermofisher.com/document-connect/document-connect.html?url=https://assets.thermofisher.com/TFS-Assets%2FLSG%2Fmanuals%2FMAN0026420_2162763_eBioIRTCellActIndMark_UG.pdf).
+
+LNCaP cells were stained with the viability dye (LIVE/DEAD™ Fixable Near IR (780) in DMSO and one vial of lyophilized dye. 100 μL of DMSO were added to one vial of dye followed by thorough mixing. A 2X working solution of the dye was then prepared by adding 2 µL of the stock solution per 1 mL of phosphate-buffered saline (PBS) (azide-free). Cells were removed from the incubator, and 100 μL of the 2X dye solution was added to each well, mixed well, and incubated for 10–30 minutes at room temperature. After incubation, the cells were centrifuged at 300 xg for 5 minutes, the supernatant was discarded, and the cells were resuspended in the residual volume of buffer remaining in the wells. Subsequently, 250 μL of Flow Cytometry Staining Buffer was added, followed by centrifugation at 300 xg for 5 minutes. The supernatant was discarded again, and the cells were resuspended in the remaining buffer volume.
+
+For fixing cells, 100 µL of IC Fixation Buffer was added to each well, and the cells were incubated for 20-60 minutes at room temperature. Following incubation, cells were centrifuged at 300 xg for 5 minutes, the supernatant was discarded, and the cells were resuspended in a residual buffer. This process was repeated twice more. After the final resuspension, one well was set aside as the single-color compensation control for the LIVE/DEAD™ Fixable Near IR (780) before proceeding with antibody staining.
+
+To stain cells and compensation beads with fluorophore-conjugated antibodies, cocktails of antibodies were prepared for the Fluorescence Minus One (FMO) sample(s) and the fully-stained sample(s) according to the tables shown below:
+
+<div className="flex flex-col items-center">
+
+    | Condition | Antibodies | Volume per sample | Total Antibody Volume Per Well |
+    |-----------|------------|-------------------|-------------------------------|
+    | CD3 FMO | CD4-PerCP 710 <br/> CD8a-PE-Cyanine7 <br/> CD134-FITC <br/> CD69-PE <br/> CD137-APC | 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL <br/> | 25 µL |
+    | CD4 FMO | CD3-eFluor 450 <br/> CD8a-PE-Cyanine7 <br/> CD134-FITC <br/> CD69-PE <br/> CD137-APC | 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL | 25 µL |
+    | CD8a FMO | CD3-eFluor 450 <br/> CD4-PerCP 710 <br/> CD134-FITC <br/> CD69-PE <br/> CD137-APC | 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL <br/> | 25 µL |
+    | CD134 FMO | CD3-eFluor 450 <br/> CD4-PerCP 710 <br/> CD8a-PE-Cyanine7 <br/> CD69-PE <br/> CD137-APC | 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL | 25 µL |
+    | CD69 FMO | CD3-eFluor 450 <br/> CD4-PerCP 710 <br/> CD8a-PE-Cyanine7 <br/> CD134-FITC <br/> CD137-APC | 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL <br/> | 25 µL |
+    | CD137 FMO | CD3-eFluor 450 <br/> CD4-PerCP 710 <br/> CD8a-PE-Cyanine7 <br/> CD134-FITC <br/> CD69-PE | 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL <br/> 5 μL | 25 µL |
+
+    | |
+    | :---: |
+    | ***Table 1.*** *Fluorescence Minus One (FMO) sample(s).* |
+
+</div>
+
+<div className="flex flex-col items-center">
+
+    | Antibody | Volume per sample (1 well) |
+    |----------|----------------------------|
+    | CD3 Monoclonal Antibody (SK7), eFluor 450, eBioscience™ | 5 μL |
+    | CD4 Monoclonal Antibody (SK3 (SK-3)), PerCP-eFluor 710, eBioscience™ | 5 μL |
+    | CD8a Monoclonal Antibody (SK1), PE-Cyanine7, eBioscience™ | 5 μL |
+    | CD134 (OX40) Monoclonal Antibody (ACT35 (ACT-35)), FITC, eBioscience™ | 5 μL |
+    | CD69 Monoclonal Antibody (FN50), PE, eBioscience™ | 5 μL |
+    | CD137 (4-1BB) Monoclonal Antibody (4B4 (4B4-1)), APC, eBioscience™ | 5 μL |
+    | **Total antibody cocktail** | 30 μL |
+
+    | |
+    | :---: |
+    | ***Table 2.*** *Fully-stained sample(s).* |
+
+</div>
+
+Antibody cocktails were added to labeled wells containing cells, and single-color compensation controls were prepared using UltraComp eBeads™ Plus Compensation Beads. After incubation and washing steps, cells and beads were resuspended in Flow Cytometry Staining Buffer and stored at 4ºC protected from light until ready to analyze on a flow cytometer.
+
+## Expected Results
+
+In this experiment, we would have two conditions:
+
+    1. A negative control which includes a co-culture of cytotoxic (CD4-CD8+) and helper (CD4+CD8+) T cells with prostate cancer cells (LNCaP) in the absence of AND Box.
+    1. A treatment control which includes a co-culture of cytotoxic (CD4-CD8+) and helper (CD4+CD8+) T cells with prostate cancer cells (LNCaP) in the presence of AND Box.
+
+The anti-CD3 antibody within the DNA box will specifically engage and activate T-cells by binding to the CD3 receptor, which is a key part of the T-cell receptor complex (Lo et al., 2013). This interaction should trigger T-cell activation, leading to the upregulation of activation markers like CD69, CD134, and CD137.
+
+In this case, the DNA box acts as a direct stimulant for T-cell activation through the CD3 pathway, likely resulting in a more robust and targeted T-cell response in the presence of the DNA box compared to controls.
+
+Expected flow cytometry graph results:
+
+    1. **Increased percentage of T cells expressing CD69 (CD3+CD69+):** CD69 is an early activation marker, and a higher expression would indicate that T cells are responding promptly to the DNA box (Cibrián & Sánchez-Madrid, 2017).
+    1. **Increased expression of CD134 marker in T cells (CD3+CD134+):** CD134 is associated with T-cell proliferation and survival, so higher levels would suggest sustained activation and potential for T cell expansion (Weinberg, 2010).
+    1. **Higher levels of CD137 marker expression in T cells (CD3+CD137+):** As an important marker for T-cell survival and activity, an increase here would imply enhanced functionality and persistence of activated T-cells (Ye et al., 2013).
+
+## References
+
+<ReferenceList>
+
+    eBioscience Immune Response T Cell Activation Induced Markers Kit User Guide. ThermoFisher Scientific (2022). https://www.thermofisher.com/document-connect/document-connect.html?url=https://assets.thermofisher.com/TFS-Assets%2FLSG%2Fmanuals%2FMAN0026420_2162763_eBioIRTCellActIndMark_UG.pdf.
+    Cibrián, D., & Sánchez-Madrid, F. (2017). CD69: From activation marker to metabolic gatekeeper. European Journal of Immunology, 47(6), 946. https://doi.org/10.1002/eji.201646837
+    Lo, Y.-C., Edidin, M. A., & Powell, J. D. (2013). Selective Activation of Antigen-Experienced T Cells by Anti-CD3 Constrained on Nanoparticles. Journal of Immunology (Baltimore, Md. : 1950), 191(10), 10.4049/jimmunol.1301433. https://doi.org/10.4049/jimmunol.1301433
+    McKinnon, K. M. (2018, February 21). Flow cytometry: An overview. Current protocols in immunology. https://pmc.ncbi.nlm.nih.gov/articles/PMC5939936/
+    Weinberg, A. D. (2010). The Role of OX40 (CD134) in T-Cell Memory Generation. Memory T Cells, 684, 57. https://doi.org/10.1007/978-1-4419-6451-9_5
+    Ye, Q., Song, D.-G., Poussin, M., Yamamoto, T., Best, A., Li, C., Coukos, G., & Daniel J Powell, J. (2013). CD137 accurately identifies and enriches for naturally-occurring tumor-reactive T cells in tumor. Clinical Cancer Research : An Official Journal of the American Association for Cancer Research, 20(1), 44. https://doi.org/10.1158/1078-0432.CCR-13-0945
+
+</ReferenceList>
