@@ -237,7 +237,7 @@ export default function ThreeJSComponent() {
           <div className="flex justify-center content-center">
             <button
               onClick={prevAnimation}
-              className="text-black hover:text-white -600 transition duration-300 ease-in-out"
+              className="text-black dark:text-slate-300 hover:text-white -600 transition duration-300 ease-in-out"
             >
               <span className="material-icons">arrow_upward</span>
             </button>
@@ -245,7 +245,7 @@ export default function ThreeJSComponent() {
           <div className="flex justify-center content-center"> 
             <button
               onClick={nextAnimation}
-              className="text-black hover:text-white -600 transition duration-300 ease-in-out"
+              className="text-black hover:text-white dark:text-slate-300 hover:text-white -600 transition duration-300 ease-in-out"
             >
               <span className="material-icons">arrow_downward</span>
             </button>
