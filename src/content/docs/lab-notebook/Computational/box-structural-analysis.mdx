@@ -31,17 +31,12 @@ The first step in running a docking model was synchronization of files. Since th
 The pipeline flow we developed to convert cadnano JSON files to mmCIF is as follows:
 
 <Steps>
-  1. **TacoxDNA:** We began by using tacoxDNA to export the box as a PDB file
-  (Suma et al., 2019). TacoxDNA assigns a new chain to each staple of our
-  design; however, because PDB files support only 26 chains, the output
-  encountered chaining issues. Additional problems included missing strands,
-  structural gaps, and non-standard residue names. 1. **ChimeraX:** To address
-  these issues, we processed the tacoxDNA PDB output in ChimeraX, making
-  adjustments such as adding hydrogens and removing hydrides. 1. **Custom
-  Scripts:** Next, we used custom BioPython scripts to resolve chain numbering
-  issues that arose during the JSON-to-mmCIF conversion (Cock et al., 2009). 1.
-  **Manual Editing:** Finally, we manually edited the mmCIF file in a text
-  editor to correct any remaining format issues.
+
+1. **TacoxDNA:** We began by using tacoxDNA to export the box as a PDB file (Suma et al., 2019). TacoxDNA assigns a new chain to each staple of our design; however, because PDB files support only 26 chains, the output encountered chaining issues. Additional problems included missing strands, structural gaps, and non-standard residue names.
+1. **ChimeraX:** To address these issues, we processed the tacoxDNA PDB output in ChimeraX, making adjustments such as adding hydrogens and removing hydrides.
+1. **Custom Scripts:** Next, we used custom BioPython scripts to resolve chain numbering issues that arose during the JSON-to-mmCIF conversion (Cock et al., 2009).
+1. **Manual Editing:** Finally, we manually edited the mmCIF file in a text editor to correct any remaining format issues.
+
 </Steps>
 
 The result of this workflow was a rechained mmCIF file with modifications for docking. This modified file was loaded into HADDOCK&copy; with spatial and active residue constraints, generating binding energy calculations focused on docking at the cavity, where a covalent bond would form. Spatial and residue constraints ensured that the interactions measured occurred within the DNA well where the bs3 bond would occur. Importantly, constraint violation energies were recorded to validate these assumptions. These energies provide a quantitative measure of how much the system deviates from these constraints; hence, if these values are negative, it indicates that the deviation is favorable and that the constraints are unreasonable. We did not explicitly model the covalent bond, as the aim was to assess steric challenges related to docking.
@@ -58,10 +53,16 @@ According to CanDo&copy; simulations, a successfully formed DNA box should take 
 
 The descriptive statistics of the RMSF values indicate an average deviation of approximately 1 nm, or roughly half of a base pair. With a standard deviation around 0.47 nm, most of the design (>99%) remains below 2 nm RMSF. As expected, the maximum RMSF of 4.8 nm occurs at the hinges where DNA angle strain is high. Overall, these values align with literature standards and indicate a conformationally stable design (Snodin et al., 2019).
 
-<div className="flex flex-row justify-center">
-  | **Statistic** | **Value (nm)** | | :---------------: |:-----------:| | Mean
-  | 1.0505089435483872 | | Median | 0.933812 | | Standard Deviation |
-  0.47092742110452673 | | Minimum | 0.415867 | | Maximum | 4.82252 |
+<div className='flex flex-row justify-center'>
+
+    | **Statistic** | **Value (nm)** |
+    | :---------------: |:-----------:|
+    | Mean  | 1.0505089435483872      |
+    | Median  | 0.933812   |
+    | Standard Deviation      | 0.47092742110452673    |
+    | Minimum      | 0.415867    |
+    | Maximum     | 4.82252      |
+
 </div>
 
 ### HADDOCK&copy; Models
@@ -70,54 +71,29 @@ Docking analysis showed favorable electrostatic and van der Waals interactions b
 
 It's important to note that HADDOCK&copy; standardizes its energy values, so while the specific value has no direct interpretive meaning in terms of units of energy, a negative result still indicates thermodynamic favorability, and larger values are preferable. Notably the electrostatic energy is more negative than the van der Waals energy suggesting that the positive residues on the anti-CD3 antibody are interacting favorably with the negatively charged DNA.
 
-<div className="flex flex-row justify-center">
-  | **Properties** | **Values (Standardized)** | |:------------:|:------------:|
-  | Van der Waals energy | $$-47.6 \pm 3.8$$ | | Electrostatic energy | $$-270.8
-  \pm 33.0$$ | | Restraints violation energy | $$56.9 \pm 25.2$$ |
+<div className='flex flex-row justify-center'>
+
+    | **Properties** | **Values (Standardized)** |
+    |:------------:|:------------:|
+    | Van der Waals energy  | $$-47.6 \pm 3.8$$       |
+    | Electrostatic energy       | $$-270.8 \pm 33.0$$       |
+    | Restraints violation energy    | $$56.9 \pm 25.2$$  |
+
 </div>
-This table shows the standardized energy values from docking the anti-CD3
-antibody into the DNA box cavity using HADDOCK&copy;. Both electrostatic and van
-der Waals energies are negative, indicating favorable interactions.
-Additionally, the positive restraint violation energy suggests that the spatial
-and conformational constraints applied to the system are appropriate and
-favorable.
+This table shows the standardized energy values from docking the anti-CD3 antibody into the DNA box cavity using HADDOCK&copy;. Both electrostatic and van der Waals energies are negative, indicating favorable interactions. Additionally, the positive restraint violation energy suggests that the spatial and conformational constraints applied to the system are appropriate and favorable.
 
 ## References
 
 <ReferenceList>
-  Cock, P. J. A., Antao, T., Chang, J. T., Chapman, B. A., Cox, C. J., Dalke,
-  A., Friedberg, I., Hamelryck, T., Kauff, F., Wilczynski, B., & de Hoon, M. J.
-  L. (2009). Biopython: freely available Python tools for computational
-  molecular biology and bioinformatics. Bioinformatics, 25(11), 1422–1423.
-  https://doi.org/10.1093/bioinformatics/btp163 Douglas, S. M., Bachelet, I., &
-  Church, G. M. (2012). A Logic-Gated Nanorobot for Targeted Transport of
-  Molecular Payloads. Science, 335(6070), 831–834.
-  https://doi.org/10.1126/science.1214081 Douglas, S. M., Dietz, H., Liedl, T.,
-  Högberg, B., Graf, F., & Shih, W. M. (2009). Self-assembly of DNA into
-  nanoscale three-dimensional shapes. Nature, 459(7245), 414–418.
-  https://doi.org/10.1038/nature08016] Honorato, R. V., Koukos, P. I.,
-  Jimenez-Garcia, B., Tsaregorodtsev, A., Verlato, M., Giachetti, A., Rosato,
-  A., & Bonvin, A. M. J. J. (2021). Structural biology in the clouds: The
-  WeNMR-EOSC ecosystem. Frontiers in Molecular Biosciences, 8, Article 729513.
-  https://doi.org/10.3389/fmolb.2021.729513 Honorato, R. V., Trellet, M. E.,
-  Jiménez-García, B., Schaarschmidt, J. J., Giulini, M., Reys, V., Koukos, P.
-  I., Rodrigues, M., Ezgi Karaca, Zundert, van, Roel-Touris, J., Charlotte,
-  Zuzana Jandová, Adrien, & Alexandre. (2024). The HADDOCK2.4 web server for
-  integrative modeling of biomolecular complexes. Nature Protocols, 19.
-  https://doi.org/10.1038/s41596-024-01011-0 Kim, D. N., Kilchherr, F., Dietz,
-  H., & Bathe, M. (2012). Quantitative prediction of 3D solution shape and
-  flexibility of nucleic acid nanostructures. Nucleic acids research, 40(7),
-  2862–2868. https://doi.org/10.1093/nar/gkr1173 Ouyang, X., De Stefano, M.,
-  Krissanaprasit, A., Bank Kodal, A. L., Bech Rosen, C., Liu, T., Helmig, S.,
-  Fan, C., & Gothelf, K. V. (2017). Docking of Antibodies into the Cavities of
-  DNA Origami Structures. Angewandte Chemie International Edition, 56(46),
-  14423–14427. https://doi.org/10.1002/anie.201706765 Snodin, B. E. K., Schreck,
-  J. S., Romano, F., Louis, A. A., & Doye, J. P. K. (2018). Coarse-grained
-  modelling of the structural properties of DNA origami. Nucleic Acids Research,
-  47(3), 1585–1597. https://doi.org/10.1093/nar/gky1304 Suma, A., Poppleton, E.,
-  Matthies, M., Šulc, P., Romano, F., Louis, A. A., Doye, J. P. K., Micheletti,
-  C., & Rovigatti, L. (2019). TacoxDNA: A user-friendly web server for
-  simulations of complex DNA structures, from single strands to origami. Journal
-  of Computational Chemistry, 40(24), 2586–2595.
-  https://doi.org/10.1002/jcc.26009
+
+Cock, P. J. A., Antao, T., Chang, J. T., Chapman, B. A., Cox, C. J., Dalke, A., Friedberg, I., Hamelryck, T., Kauff, F., Wilczynski, B., & de Hoon, M. J. L. (2009). Biopython: freely available Python tools for computational molecular biology and bioinformatics. Bioinformatics, 25(11), 1422–1423. https://doi.org/10.1093/bioinformatics/btp163
+Douglas, S. M., Bachelet, I., & Church, G. M. (2012). A Logic-Gated Nanorobot for Targeted Transport of Molecular Payloads. Science, 335(6070), 831–834. https://doi.org/10.1126/science.1214081
+Douglas, S. M., Dietz, H., Liedl, T., Högberg, B., Graf, F., & Shih, W. M. (2009). Self-assembly of DNA into nanoscale three-dimensional shapes. Nature, 459(7245), 414–418. https://doi.org/10.1038/nature08016]
+Honorato, R. V., Koukos, P. I., Jimenez-Garcia, B., Tsaregorodtsev, A., Verlato, M., Giachetti, A., Rosato, A., & Bonvin, A. M. J. J. (2021). Structural biology in the clouds: The WeNMR-EOSC ecosystem. Frontiers in Molecular Biosciences, 8, Article 729513. https://doi.org/10.3389/fmolb.2021.729513
+Honorato, R. V., Trellet, M. E., Jiménez-García, B., Schaarschmidt, J. J., Giulini, M., Reys, V., Koukos, P. I., Rodrigues, M., Ezgi Karaca, Zundert, van, Roel-Touris, J., Charlotte, Zuzana Jandová, Adrien, & Alexandre. (2024). The HADDOCK2.4 web server for integrative modeling of biomolecular complexes. Nature Protocols, 19. https://doi.org/10.1038/s41596-024-01011-0
+Kim, D. N., Kilchherr, F., Dietz, H., & Bathe, M. (2012). Quantitative prediction of 3D solution shape and flexibility of nucleic acid nanostructures. Nucleic acids research, 40(7), 2862–2868. https://doi.org/10.1093/nar/gkr1173
+Ouyang, X., De Stefano, M., Krissanaprasit, A., Bank Kodal, A. L., Bech Rosen, C., Liu, T., Helmig, S., Fan, C., & Gothelf, K. V. (2017). Docking of Antibodies into the Cavities of DNA Origami Structures. Angewandte Chemie International Edition, 56(46), 14423–14427. https://doi.org/10.1002/anie.201706765
+Snodin, B. E. K., Schreck, J. S., Romano, F., Louis, A. A., & Doye, J. P. K. (2018). Coarse-grained modelling of the structural properties of DNA origami. Nucleic Acids Research, 47(3), 1585–1597. https://doi.org/10.1093/nar/gky1304
+Suma, A., Poppleton, E., Matthies, M., Šulc, P., Romano, F., Louis, A. A., Doye, J. P. K., Micheletti, C., & Rovigatti, L. (2019). TacoxDNA: A user-friendly web server for simulations of complex DNA structures, from single strands to origami. Journal of Computational Chemistry, 40(24), 2586–2595. https://doi.org/10.1002/jcc.26009
+
 </ReferenceList>

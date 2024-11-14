@@ -120,13 +120,14 @@ Furthermore, we assumed that the permeability properties of our DNA nanostructur
 To estimate the surface area of the capillaries, we took the total ratio of blood delivered to the compartment with the total blood in the body and multiplied it by the total surface area of capillaries in the body. This gave a rough estimate of the surface area of the capillaries in that compartment. Permeability values were derived from Sadipour et al. (2023).
 
 <div className='flex flex-col items-center justify-center'>
-| Compartment | Total Volume of Blood | Blood Ratio | Surface Area | Permeability | Transport Rate Constant $$cm^3/s$$ |
-|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
-| Liver    | 660 ml/min (Wayne (2009)     | 0.132     | 792 $$cm^2$$     | $$1 x 10^-2 cm/s$$     | 7.92     |
-| Kidney    | 1 L/min (Eaton & Pooler, 2023)     | 0.20     | 1200 $$cm^2$$     | $$1 x 10^-2 cm/s$$     | 12     |
-| Tumor    | 2 ml/min  (Inaba, 1992; Leissner & Tisell, 1979)     | 0.0004     | 2.4 $$cm^2$$     | $$1 x 10^-2 cm/s$$     | 0.024     |
-| Other Tissue    | 3.34 L/min (Sharma & Sharma, 2023)     | 0.668     | 4008 $$cm^2$$     | $$3.4 x 10^-4 cm/s$$     | 1.36272     |
-| Total Flow    | 5 L/ min (Sharma & Sharma, 2023)     | 1     | 6000 $$cm^2$$ (BioNumber, nd.)     |  NA | NA     |
+
+| Compartment  |              Total Volume of Blood              | Blood Ratio |          Surface Area          |     Permeability     | Transport Rate Constant $$cm^3/s$$ |
+| :----------: | :---------------------------------------------: | :---------: | :----------------------------: | :------------------: | :--------------------------------: |
+|    Liver     |            660 ml/min (Wayne (2009)             |    0.132    |          792 $$cm^2$$          |  $$1 x 10^-2 cm/s$$  |                7.92                |
+|    Kidney    |         1 L/min (Eaton & Pooler, 2023)          |    0.20     |         1200 $$cm^2$$          |  $$1 x 10^-2 cm/s$$  |                 12                 |
+|    Tumor     | 2 ml/min (Inaba, 1992; Leissner & Tisell, 1979) |   0.0004    |          2.4 $$cm^2$$          |  $$1 x 10^-2 cm/s$$  |               0.024                |
+| Other Tissue |       3.34 L/min (Sharma & Sharma, 2023)        |    0.668    |         4008 $$cm^2$$          | $$3.4 x 10^-4 cm/s$$ |              1.36272               |
+|  Total Flow  |        5 L/ min (Sharma & Sharma, 2023)         |      1      | 6000 $$cm^2$$ (BioNumber, nd.) |          NA          |                 NA                 |
 
 |                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -135,6 +136,7 @@ To estimate the surface area of the capillaries, we took the total ratio of bloo
 </div>
 
 <div className='flex flex-col items-center'>
+
     To estimate reaction rate constants, we applied the small substrate assumption to the Michaelis-Menten equation (Nelson & Cox, 2004). At low substrate concentrations, the reaction becomes substrate-limited, following first-order kinetics with a rate constant equal to Vmax/Km. The values, prioritized from prostate cancer sources over solid tumors or healthy individuals, are provided in the table below. Since  Km is an enzyme-specific property, the same value was used across all compartments. Vmax depends on the concentration of the enzyme and, hence, is compartment specific.
     | Compartment | Km | Vmax |
     |:--------:|:--------:|:--------:|
@@ -201,6 +203,7 @@ J &= -D \nabla C
 ```
 
 <Aside>
+
     • J is the flux, which represents the amount of substance passing through a given area per unit time.
 
     • D is the diffusion coefficient, describing how easily the substance diffuses. Larger means easier to move
@@ -220,11 +223,13 @@ To convert flux to changes in concentration, we apply Fick’s second law below 
 ```
 
 <Aside>
+
     • $$\frac{\partial C}{\partial t}$$ is the rate of change of concentration with respect to time (how the concentration evolves over time).
-   
+
     • $$D(x, y)$$ is the diffusion coefficient (how easily the substance diffuses). Larger indicates easier transport.
-   
+
     • $$\nabla^2C$$ is the laplacian of concentration with respect to position, or the curvature of the concentration profile.
+
 </Aside>
 
 **_How is it broken down?_**
@@ -238,11 +243,13 @@ The Michaelis-Menton equation is used to describe how molecules, like drugs or l
 ```
 
 <Aside>
+
     • $$\frac{\partial C}{\partial t}$$ is the rate by which the drug is broken down.
-    
+
     • $$C$$ is the concentration of the drug.
-    
+
     • $$K_m​$$ is the dissociation constant, which represents the concentration of ligands at which half of the receptor sites are occupied.
+
 </Aside>
 
 Putting it all together:
@@ -270,10 +277,11 @@ C(x, y, t_{i+1}) &= C(x, y, t_i) + \frac{\partial C}{\partial t} \cdot \Delta t
 ```
 
 <Aside>
+
     • $$C(x, y, t_i)$$ is the current value of the function (the solution) at step $$i$$.
-    
-    • $$t$$ is the current value of time. 
-    
+
+    • $$t$$ is the current value of time.
+
     • $$\Delta t$$ is the step size, which determines how far forward we move in each step.
 
     • $$\frac{\partial C}{\partial t}$$ is the derivative of the function at the current point, which gives the slope of the curve at that point. We can calculate this using our equation above for each time point.
@@ -299,6 +307,7 @@ To solve the model, a custom python script was created and the discretization te
 Two different forms of coefficients were present: namely, transport and reaction. To determine transport coefficients, literature review was used to determine the diffusion coefficient of negatively charged nanoparticles in water and extracellular matrix. The diffusion coefficient in tissue was set to zero as it was assumed that minimal drug penetrated the membrane. The results are tabulated below.
 
 <div className="flex flex-col items-center justify-center">
+
     | Category | Diffusion Coefficients |
     |:--------:|:--------:|
     | D1: Diffusion In Water | $$2 * 10^-12 m^2/s$$ (Khitab et al., 2017) |
@@ -324,49 +333,22 @@ The results in Figure 2 show the spatial development of the box as it spreads, c
 ## References
 
 <ReferenceList>
-  Anderson, J. M., Rodriguez, A., & Chang, D. T. (2008). Foreign body reaction
-  to biomaterials. Seminars in immunology, 20(2), 86–100.
-  https://doi.org/10.1016/j.smim.2007.11.004 BioNumbers. (n.d.). Total cross
-  sectional area of capillaries - Human Homo sapiens - BNID 110559.
-  Bionumbers.hms.harvard.edu.
-  https://bionumbers.hms.harvard.edu/bionumber.aspx?s=n&v=4&id=110559
-  Cherepanova, A. V., Tamkovich, S. N., Bryzgunova, O. E., Vlassov, V. V., &
-  Laktionov, P. P. (2008). Deoxyribonuclease Activity and Circulating DNA
-  Concentration in Blood Plasma of Patients with Prostate Tumors. Annals of the
-  New York Academy of Sciences, 1137(1), 218–221.
-  https://doi.org/10.1196/annals.1448.016 Eaton, D., & Pooler, J. (2023).
-  Vander’s Renal Physiology, 10th Edition | AccessMedicine | McGraw Hill
-  Medical. McGraw Hill; McGraw Hill.
-  https://accessmedicine.mhmedical.com/book.aspx?bookid=3316 Friedman, M. H.
-  (2008). Principles and Models of Biological Transport. Springer New York.
-  https://doi.org/10.1007/978-0-387-79240-8 Golonka, R. M., Yeoh, B. S.,
-  Petrick, J. L., Weinstein, S. J., Albanes, D., Gewirtz, A. T., McGlynn, K. A.,
-  & Vijay-Kumar, M. (2018). Deoxyribonuclease I Activity, Cell-Free DNA, and
-  Risk of Liver Cancer in a Prospective Cohort. JNCI Cancer Spectrum, 2(4).
-  https://doi.org/10.1093/jncics/pky083 Hoshyar, N., Gray, S., Han, H., & Bao,
-  G. (2016). The effect of nanoparticle size on in vivo pharmacokinetics and
-  cellular interaction. Nanomedicine, 11(6), 673–692.
-  https://doi.org/10.2217/nnm.16.5 Inaba, T. (1992). Quantitative measurements
-  of prostatic blood flow and blood volume by positron emission tomography. The
-  Journal of Urology, 148(5), 1457–1460.
-  https://doi.org/10.1016/s0022-5347(17)36939-2 Khitab, A., Anwar, W., & Arshad,
-  M. T. (2017). Predictive Models of Chloride Penetration in concrete: An
-  Overview. MUST Journal of Engineering and Applied Sciences, 1(1), 1–14.
-  https://doi.org/10.22496/mjeas20170103 Leissner, K. H., & Tisell, L. E.
-  (1979). The weight of the human prostate. Scandinavian Journal of Urology and
-  Nephrology, 13(2), 137–142. https://doi.org/10.3109/00365597909181168 Lieleg,
-  O., Baumgärtel, R. M., & Bausch, A. R. (2009). Selective Filtering of
-  Particles by the Extracellular Matrix: An Electrostatic Bandpass. Biophysical
-  Journal, 97(6), 1569–1577. https://doi.org/10.1016/j.bpj.2009.07.009 Nelson,
-  D. L., & Cox, M. M. (2004). Lehninger principles of biochemistry (4th ed.).
-  W.H. Freeman. Rories, C. C., & Carter, C. W. (1986). Sensitive quantitation of
-  endonuclease kinetics. Journal of Biochemical and Biophysical Methods, 12(3),
-  147–159. https://doi.org/10.1016/0165-022x(86)90029-1 Sadipour, M., Momeni, M.
-  M., & Soltani, M. (2023). Effect of hydraulic conductivity and permeability on
-  drug distribution, an investigation based on a part of a real tissue.
-  ArXiv.org. https://doi.org/10.48550/arXiv.2304.06273 Sharma, R., & Sharma, S.
-  (2023). Physiology, Blood Volume. Nih.gov; StatPearls Publishing.
-  https://www.ncbi.nlm.nih.gov/books/NBK526077/ W. Wayne Lautt. (2009). Hepatic
-  Circulation: Physiology and Pathophysiology: Chapter 2. Nih.gov; Morgan &
-  Claypool Life Sciences. https://www.ncbi.nlm.nih.gov/books/NBK53069/
+
+Anderson, J. M., Rodriguez, A., & Chang, D. T. (2008). Foreign body reaction to biomaterials. Seminars in immunology, 20(2), 86–100. https://doi.org/10.1016/j.smim.2007.11.004
+BioNumbers. (n.d.). Total cross sectional area of capillaries - Human Homo sapiens - BNID 110559. Bionumbers.hms.harvard.edu. https://bionumbers.hms.harvard.edu/bionumber.aspx?s=n&v=4&id=110559
+Cherepanova, A. V., Tamkovich, S. N., Bryzgunova, O. E., Vlassov, V. V., & Laktionov, P. P. (2008). Deoxyribonuclease Activity and Circulating DNA Concentration in Blood Plasma of Patients with Prostate Tumors. Annals of the New York Academy of Sciences, 1137(1), 218–221. https://doi.org/10.1196/annals.1448.016
+Eaton, D., & Pooler, J. (2023). Vander’s Renal Physiology, 10th Edition | AccessMedicine | McGraw Hill Medical. McGraw Hill; McGraw Hill. https://accessmedicine.mhmedical.com/book.aspx?bookid=3316
+Friedman, M. H. (2008). Principles and Models of Biological Transport. Springer New York. https://doi.org/10.1007/978-0-387-79240-8
+Golonka, R. M., Yeoh, B. S., Petrick, J. L., Weinstein, S. J., Albanes, D., Gewirtz, A. T., McGlynn, K. A., & Vijay-Kumar, M. (2018). Deoxyribonuclease I Activity, Cell-Free DNA, and Risk of Liver Cancer in a Prospective Cohort. JNCI Cancer Spectrum, 2(4). https://doi.org/10.1093/jncics/pky083
+Hoshyar, N., Gray, S., Han, H., & Bao, G. (2016). The effect of nanoparticle size on in vivo pharmacokinetics and cellular interaction. Nanomedicine, 11(6), 673–692. https://doi.org/10.2217/nnm.16.5
+Inaba, T. (1992). Quantitative measurements of prostatic blood flow and blood volume by positron emission tomography. The Journal of Urology, 148(5), 1457–1460. https://doi.org/10.1016/s0022-5347(17)36939-2
+Khitab, A., Anwar, W., & Arshad, M. T. (2017). Predictive Models of Chloride Penetration in concrete: An Overview. MUST Journal of Engineering and Applied Sciences, 1(1), 1–14. https://doi.org/10.22496/mjeas20170103
+Leissner, K. H., & Tisell, L. E. (1979). The weight of the human prostate. Scandinavian Journal of Urology and Nephrology, 13(2), 137–142. https://doi.org/10.3109/00365597909181168
+Lieleg, O., Baumgärtel, R. M., & Bausch, A. R. (2009). Selective Filtering of Particles by the Extracellular Matrix: An Electrostatic Bandpass. Biophysical Journal, 97(6), 1569–1577. https://doi.org/10.1016/j.bpj.2009.07.009
+Nelson, D. L., & Cox, M. M. (2004). Lehninger principles of biochemistry (4th ed.). W.H. Freeman.
+Rories, C. C., & Carter, C. W. (1986). Sensitive quantitation of endonuclease kinetics. Journal of Biochemical and Biophysical Methods, 12(3), 147–159. https://doi.org/10.1016/0165-022x(86)90029-1
+Sadipour, M., Momeni, M. M., & Soltani, M. (2023). Effect of hydraulic conductivity and permeability on drug distribution, an investigation based on a part of a real tissue. ArXiv.org. https://doi.org/10.48550/arXiv.2304.06273
+Sharma, R., & Sharma, S. (2023). Physiology, Blood Volume. Nih.gov; StatPearls Publishing. https://www.ncbi.nlm.nih.gov/books/NBK526077/
+W. Wayne Lautt. (2009). Hepatic Circulation: Physiology and Pathophysiology: Chapter 2. Nih.gov; Morgan & Claypool Life Sciences. https://www.ncbi.nlm.nih.gov/books/NBK53069/
+
 </ReferenceList>

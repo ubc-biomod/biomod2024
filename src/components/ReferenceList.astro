@@ -6,7 +6,7 @@ const contentHTML = virtualDoc.getElementsByTagName("p");
 const links = Object.entries(virtualDoc.getElementsByTagName("a")).map(
   ([_, value]) => {
     return value.href;
-  },
+  }
 );
 // console.log(new JSDOM(contentStr).window.document.getElementsByTagName('a').length)
 const content = Object.entries(contentHTML).flatMap(([_, value]) => {
