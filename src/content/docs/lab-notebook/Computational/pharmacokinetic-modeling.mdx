@@ -33,7 +33,7 @@ The primary degradation mechanism of the DNA nanostructure box was assumed to be
 
 |                                                                                                                <div className='flex flex-row justify-center'>![Pharmacokinetics Model](../../../../assets/pharmacokinetics_model.png) </div>                                                                                                                |
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **\*Figure 1:** An illustration of the compartments in the pharmacokinetics model. The drug is transported bidirectionally in the liver and peripheral tissue, while it is transported unidirectionally in the tumor and kidney. Degradation reactions occur in the liver, circulatory system, and peripheral tissue. The drug is activated in the tumor.\* |
+| **_Figure 1:_** _An illustration of the compartments in the pharmacokinetics model. The drug is transported bidirectionally in the liver and peripheral tissue, while it is transported unidirectionally in the tumor and kidney. Degradation reactions occur in the liver, circulatory system, and peripheral tissue. The drug is activated in the tumor._ |
 
 We modeled each transport phenomena and reaction interaction as a series of first-order reactions with respect to the concentration of drug in the compartments. Transport phenomena refers to movement of molecules from one compartment to another (i.e. circulatory system to hepatic system). Reactions refer to irreversible chemical alterations to the AND box. For the reactions, we assumed the limiting factor is the availability of our AND box and, hence, the compartment's degradation process as a first-order reaction. Additionally, mass transfer between compartments was assumed to be linear due to the diffusive nature of the transport (details discussed later). This means that our model contains a series of first-order reactions with specific rate constants (K). Renal clearance was modeled as a unidirectional process, and we assumed that the tumor retained all nanoparticles due to the enhanced permeability and retention (EPR) effect (Wu, 2012). This gave rise to the following system of 11 ordinary differential equations and 24 parameters.
 
@@ -131,7 +131,7 @@ To estimate the surface area of the capillaries, we took the total ratio of bloo
 
 |                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **\*Table 1:** Tabulated transport constants for movement to and from different body compartments to the circulatory system were used. The average permeability value was applied for most tissues, with the exception of peripheral tissue, where the permeability of adipose tissue reduced the overall value. Surface area was estimated by multiplying the ratio of blood delivered to the tissue by the total surface area.\* |
+| **_Table 1:_** _Tabulated transport constants for movement to and from different body compartments to the circulatory system were used. The average permeability value was applied for most tissues, with the exception of peripheral tissue, where the permeability of adipose tissue reduced the overall value. Surface area was estimated by multiplying the ratio of blood delivered to the tissue by the total surface area._ |
 
 </div>
 
@@ -146,7 +146,7 @@ To estimate the surface area of the capillaries, we took the total ratio of bloo
 
     | |
     | :--: |
-    | ***Table 2:** Tabulated kinetics parameters for endonuclease-mediated breakdown of the AND box.* |
+    | ***Table 2:*** *Tabulated kinetics parameters for endonuclease-mediated breakdown of the AND box.* |
 
 </div>
 
@@ -172,15 +172,15 @@ The drug profile in the tumor shows that approximately 2% of the administered dr
 
 |                                                                           <div className='flex flex-row justify-center'>![Drug Profile](../../../../assets/drug_profile.png) </div>                                                                            |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **\*Figure 2:** The undegraded inactive AND box concentration profiles as a percentage of initial dose. The circulatory system is the blue line, renal system is the green line, hepatic is the purple line, and other peripheral tissues are the pink line.\* |
+| **_Figure 2:_** _The undegraded inactive AND box concentration profiles as a percentage of initial dose. The circulatory system is the blue line, renal system is the green line, hepatic is the purple line, and other peripheral tissues are the pink line._ |
 
 |                                                                        <div className='flex flex-row justify-center'>![Degradation Profile at Tumor Site](../../../../assets/degradation_profile_1.png) </div>                                                                        |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **\*Figure 3:** AND box concentration profile in the tumor as a percentage of initial dose. The purple line is the activated open box , the red line is the degraded box, and the green line is the inactive closed box. Around 2.5% of the initial dose is activated in the tumor.\* |
+| **_Figure 3:_** _AND box concentration profile in the tumor as a percentage of initial dose. The purple line is the activated open box , the red line is the degraded box, and the green line is the inactive closed box. Around 2.5% of the initial dose is activated in the tumor._ |
 
 |                                         <div className='flex flex-row justify-center'>![Degradation Profile](../../../../assets/degradation_profile_2.png) </div>                                          |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **\*Figure 4:** Degradation profiles of the AND box as a percentage of the initial does. The renal system is red, the circulatory is blue, the hepatic is light blue, and peripheral tissues are orange.\* |
+| **_Figure 4:_** _Degradation profiles of the AND box as a percentage of the initial does. The renal system is red, the circulatory is blue, the hepatic is light blue, and peripheral tissues are orange._ |
 
 ### Model 2
 
@@ -316,7 +316,7 @@ Two different forms of coefficients were present: namely, transport and reaction
 
     | |
     | :--: |
-    | ***Table 3:** Tabulated diffusion coefficient of negatively charged particles in water, the extracellular matrix, and in cells.* |
+    | ***Table 3:*** *Tabulated diffusion coefficient of negatively charged particles in water, the extracellular matrix, and in cells.* |
 
 </div>
 
@@ -324,7 +324,7 @@ Next, we could not directly determine the reaction coefficients of the system as
 
 |                                                                                                                                          <div className='flex flex-row justify-center'>![A model of drug transport](../../../../assets/drug_transport.png) </div>                                                                                                                                          |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **\*Figure 5:** A model of drug transport in computer-generated solid tumor tissues is shown in these images. Dark spots represent cancer cells, light pink areas indicate extracellular matrices, and white spots represent media. The orange overlay shows the concentration of drugs in the tissue. The images are ordered from (1) to (8), representing the temporal evolution of the drug in space.\* |
+| **_Figure 5:_** _A model of drug transport in computer-generated solid tumor tissues is shown in these images. Dark spots represent cancer cells, light pink areas indicate extracellular matrices, and white spots represent media. The orange overlay shows the concentration of drugs in the tissue. The images are ordered from (1) to (8), representing the temporal evolution of the drug in space._ |
 
 #### Results
 
