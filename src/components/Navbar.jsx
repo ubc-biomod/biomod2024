@@ -19,7 +19,7 @@ export default function Navbar({ links, currentBase, callToActionLink, isNormalP
           <a
             key={link.href}
             href={link.href}
-            className="group text-navText font-semibold hover:opacity-70 transition duration-300"
+            className="group dark:text-white text-navText font-semibold hover:opacity-70 transition duration-300"
           >
             {link.title}
             <div
