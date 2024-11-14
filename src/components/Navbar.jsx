@@ -6,7 +6,7 @@ export default function Navbar({ links, currentBase, callToActionLink, isNormalP
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex items-center justify-between w-full p-4">
+    <div className="flex flex-col lg:flex-row gap-x-16 grow justify-end lg:justify-center items-end lg:items-center basis-1/2">
 
       {/* Hamburger Icon (Mobile) */}
       <div className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
@@ -14,7 +14,7 @@ export default function Navbar({ links, currentBase, callToActionLink, isNormalP
       </div>
 
       {/* Navigation Links */}
-      <div className={`flex flex-col lg:flex-row gap-x-8 items-center lg:gap-x-16 ${isOpen ? 'block' : 'hidden'} lg:flex`}>
+      <div className={`flex flex-col lg:flex-row gap-x-8 items-end lg:items-center lg:gap-x-16 ${isOpen ? 'block' : 'hidden'} lg:flex`}>
         {links.map((link) => (
           <a
             key={link.href}
@@ -28,17 +28,12 @@ export default function Navbar({ links, currentBase, callToActionLink, isNormalP
             />
           </a>
         ))}
-        
-        {/* Conditional Call to Action */}
         {isNormalPage ? (
-          <a href={callToActionLink.href} className="btn-primary">
+          <a href={callToActionLink.href} className="block lg:hidden group text-navText font-semibold hover:opacity-70 transition duration-300">
             <span>{callToActionLink.title}</span>
-            <BsBoxArrowUpRight />
           </a>
         ) : (
-          <div className="basis-1/5">
-            {/* Assuming SearchDefault is another component */}
-            <SearchDefault {...Astro.props} />
+          <div>
           </div>
         )}
       </div>

@@ -4,6 +4,7 @@ import SearchDefault from "@astrojs/starlight/components/Search.astro";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { IconContext } from "react-icons/lib";
 import HomeButton from "./HomeButton.astro";
+import Navbar from "../Navbar.jsx"
 
 const normalPages = Astro.props.sidebar
   .filter((item) => item.type === "link")
@@ -51,41 +52,27 @@ Astro.props.sidebar.forEach((item) => {
 
 <div class="flex flex-row text-center bg-transparent">
   {/* Logo + Team Name */}
-  <HomeButton {...Astro.props} />
-
-  {/* Sidebar Links */}
-  <div
-    class="flex flex-row gap-x-16 grow justify-center items-center basis-1/2"
-  >
-    {
-      links.map((link) => (
-        <a
-          class="group text-navText font-semibold hover:opacity-70 transition duration-300"
-          href={link.href}
-        >
-          {link.title}
-          <div
-            class={`max-w-0 group-hover:left-0 group-hover:max-w-full h-[0.2rem] bg-black
-              transition-all duration-300 origin-center relative 
-              ${link.base === currentBase ? "left-0 max-w-full" : "left-1/2"}`}
-          />
-        </a>
-      ))
-    }
+  <div class="whitespace-nowrap">
+    <HomeButton {...Astro.props} />
   </div>
 
-  {
-    isNormalPage ? (
-      <a href={callToActionLink.href} class={`btn-primary`}>
-        <span>{callToActionLink.title}</span>
-        <IconContext.Provider value={{ className: "" }}>
-          <BsBoxArrowUpRight />
-        </IconContext.Provider>
-      </a>
-    ) : (
-      <div class="basis-1/5">
-        <SearchDefault {...Astro.props} />
-      </div>
-    )
-  }
+  <Navbar links={links} currentBase={currentBase} callToActionLink={callToActionLink} isNormalPage={isNormalPage} client:load />
+
+  <div class="hidden lg:block">
+    {
+      isNormalPage ? (
+        <a href={callToActionLink.href} class={`btn-primary`}>
+          <span>{callToActionLink.title}</span>
+          <IconContext.Provider value={{ className: "" }}>
+            <BsBoxArrowUpRight />
+          </IconContext.Provider>
+        </a>
+      ) : (
+        <div class="basis-1/5">
+          <SearchDefault {...Astro.props} />
+        </div>
+      )
+    }
+  </div>
+  
 </div>
