@@ -45,7 +45,7 @@ export default function ThreeJSComponent() {
     let model;
 
     loader.load(
-      "../../src/assets/box_for_website.glb", // Ensure this path is correct
+      "/box_for_website.glb", // Ensure this path is correct
       function (gltf) {
         model = gltf.scene;
         // Center the model by calculating its bounding box and re-positioning it
