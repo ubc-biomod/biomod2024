@@ -9,19 +9,19 @@ interface CarouselItem {
 
 const socialLinks = [
   {
-    href: "https://instagram.com",
+    href: "https://www.instagram.com/ubcbiomod/",
     icon: FaInstagram,
     label: "Instagram",
     color: "#000000", // if we want to color icons in future
   },
   {
-    href: "https://youtube.com",
+    href: "https://www.youtube.com/@ubcbiomod417",
     icon: FaYoutube,
     label: "YouTube",
     color: "#000000",
   },
   {
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/company/ubc-biomod/posts/?feedView=all",
     icon: FaLinkedin,
     label: "LinkedIn",
     color: "#000000",
@@ -30,11 +30,11 @@ const socialLinks = [
 
 const additionalLinks = [
   {
-    href: "https://google.com",
+    href: "mailto:ubcbiomod@gmail.com",
     label: "Email Us",
   },
   {
-    href: "https://google.com",
+    href: "https://drive.google.com/file/d/15A3nlixAvMBReDsuk2gmMqtoEK0zBOxe/view",
     label: "Become a Sponsor",
   },
 ];
@@ -81,13 +81,13 @@ const Footer: React.FC = () => {
 
   return (
     <div className="not-content relative flex flex-col items-center">
-      <div className="flex flex-col bg-[#d9d9d9] items-center absolute w-screen gap-y-6 py-4">
+      <div className="flex flex-col items-center absolute w-screen gap-y-6 py-4">
         {carouselItems.length !== 0 && (
           <div className="flex flex-col items-center">
-            <h1 className="text-2xl md:text-4xl text-black font-bold">
+            <h1 className="text-2xl md:text-4xl text-black dark:text-white font-bold">
               Meet the UBC BIOMOD Team
             </h1>
-            <h4 className="h-6 text-md text-black">{activeText}</h4>
+            <h4 className="h-6 text-md text-black dark:text-white font-bold">{activeText}</h4>
           </div>
         )}
 
@@ -118,12 +118,12 @@ const Footer: React.FC = () => {
               </Marquee>
             </Suspense>
           ) : (
-            <div className="text-black">Loading Carousel...</div>
+            <div className="text-black dark:text-white font-bold">Loading Carousel...</div>
           )}
         </div>
 
         <div className="flex flex-row items-center gap-x-10">
-          {socialLinks.map(({ href, icon: Icon, label, color }, index) => (
+          {socialLinks.map(({ href, icon: Icon, label }, index) => (
             <a
               key={index}
               href={href}
@@ -132,7 +132,7 @@ const Footer: React.FC = () => {
               className="w-8 h-8 cursor-pointer"
               aria-label={label}
             >
-              <Icon className="hover:opacity-60" size={32} color={color} />
+              <Icon className="hover:opacity-60 text-black dark:text-white" size={32} />
             </a>
           ))}
         </div>
@@ -144,7 +144,7 @@ const Footer: React.FC = () => {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline text-black"
+              className="underline text-black dark:text-white font-bold"
             >
               {label}
             </a>
