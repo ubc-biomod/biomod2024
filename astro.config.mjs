@@ -1,8 +1,10 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-import react from "@astrojs/react";
+
 import tailwind from "@astrojs/tailwind";
+
+import react from "@astrojs/react";
 import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
