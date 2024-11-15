@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
 
   useEffect(() => {
     // Fetch data from the endpoint
-    fetch("")
+    fetch("https://biomod-db-worker.kiibob224.workers.dev/")
       .then((response) => response.json())
       .then((data) => {
         // Transform the data to match CarouselItem structure

@@ -55,6 +55,15 @@ export default defineConfig({
         Pagination: "./src/components/overrides/Pagination.astro",
         Footer: "./src/components/overrides/FooterWrapper.astro",
       },
+      head: [
+        {
+          tag: "link",
+          attrs: {
+            rel: "stylesheet",
+            href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+          },
+        },
+      ],
     }),
     tailwind({
       applyBaseStyles: false

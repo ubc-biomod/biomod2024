@@ -58,10 +58,9 @@ Astro.props.sidebar.forEach((item) => {
 
   <Navbar links={links} currentBase={currentBase} callToActionLink={callToActionLink} isNormalPage={isNormalPage} client:load />
 
-  <div class="hidden lg:block">
     {
       isNormalPage ? (
-        <a href={callToActionLink.href} class={`btn-primary`}>
+        <a href={callToActionLink.href} class={`btn-primary hidden`}>
           <span>{callToActionLink.title}</span>
           <IconContext.Provider value={{ className: "" }}>
             <BsBoxArrowUpRight />
@@ -73,6 +72,5 @@ Astro.props.sidebar.forEach((item) => {
         </div>
       )
     }
-  </div>
   
 </div>
