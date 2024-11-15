@@ -12,10 +12,10 @@ export default defineConfig({
       social: {
           github: 'https://github.com/withastro/starlight',
       },
-      // customCss: [
-      //   // Path to your Tailwind base styles:
-      //   "./src/styles/tailwind.css",
-      // ],
+      customCss: [
+        // Path to your Tailwind base styles:
+        "./src/styles/tailwind.css",
+      ],
       sidebar: [
           {
               label: 'Home',
@@ -49,7 +49,6 @@ export default defineConfig({
           Pagination: './src/components/overrides/Pagination.astro',
           Footer: './src/components/overrides/FooterWrapper.astro',
       },
-      customCss: ["./src/tailwind.css"],
       head: [
         {
           tag: "link",
