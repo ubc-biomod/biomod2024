@@ -28,7 +28,7 @@
 }
 
 .content-panel {
-  background-image: url("./particles.png");
+  background-image: url("/particles.png");
   background-size: fill;
   background-position: center;
 }
