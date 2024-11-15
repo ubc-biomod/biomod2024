@@ -5,7 +5,6 @@ import starlight from "@astrojs/starlight";
 import tailwind from "@astrojs/tailwind";
 
 import react from "@astrojs/react";
-
 import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
@@ -15,6 +14,10 @@ export default defineConfig({
       social: {
           github: 'https://github.com/withastro/starlight',
       },
+      customCss: [
+        // Path to your Tailwind base styles:
+        "./src/styles/tailwind.css",
+      ],
       sidebar: [
           {
               label: 'Home',
@@ -48,11 +51,19 @@ export default defineConfig({
           Pagination: './src/components/overrides/Pagination.astro',
           Footer: './src/components/overrides/FooterWrapper.astro',
       },
-      customCss: [
-          './src/tailwind.css',
-      ]
-      }), tailwind(), react()],
-
+      head: [
+        {
+          tag: "link",
+          attrs: {
+            rel: "stylesheet",
+            href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+          },
+        },
+      ],
+    }),
+    tailwind(),
+    react(),
+  ],
   output: 'server',
   adapter: netlify(),
 });
