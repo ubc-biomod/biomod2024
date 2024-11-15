@@ -1,0 +1,51 @@
+---
+title: Challenges
+description: Challenges
+---
+
+import ReferenceList from "@/components/ReferenceList.astro";
+
+Throughout the design process, our team faced some key challenges surrounding the formation of our protocols and our lab experiments. One major challenge we faced during our protocol writing phase was developing the method of conjugating the anti-CD3 antibody and the A10-3.2 aptamers to the DNA box.
+
+## Protein-DNA Conjugation
+
+A major obstacle that we faced with the immune engager was finding a way to reliably conjugate a protein structure with a DNA strand. Some preliminary solutions that our team researched involved biotin-streptavidin conjugation, which would use the binding properties of divalent streptavidin to connect the anti-CD3 antibody to the DNA box (Koumarianou, Hudson, Williams, Epenetos & Stamp, 1999). However, this concept required multiple conjugation steps and would have been difficult to validate. As such, the team shifted towards a simpler solution that required fewer steps and was easier to validate, which involved a histidinylated anti-CD3 antibody and a nickel-nitrilotriacetic acid (Ni-NTA) conjugation. Due to its chemical structure and its similarities to in vivo pH levels, high concentrations of histidine on a protein often indicate the presence of a binding site for ligands such as metal ions. This concept is applied in Ni-NTA conjugation, where the nickel ion can conjugate with a histidine chain, providing a location for NTA to bind (Ouyang et al., 2017). Since DNA oligonucleotides can be easily synthesized with NTA attached, Ni-NTA conjugation enables a more reliable, predictable way to attach our anti-CD3 antibody to our DNA box structure.
+
+## A10-3.2 Aptamers-DNA Box Conjugation
+
+Another major obstacle that we faced involved the conjugation of the A10-3.2 aptamers to the DNA box. Due to its sensitivity to degradation via high heat, enzymatic reactions, and alkaline environments (Lakhin et al., 2013), our team encountered difficulties in finding feasible conjugation protocols involving the modification of the A10-3.2 aptamer. A solution that we initially researched involved a copper-mediated azide-alkyne click chemistry (CuAAC) reaction, pioneered by Kolb et al. (2001), where an azide group would be attached to the aptamers with a corresponding alkyne group attached to the DNA box. By combining the two resulting reagents, a consecutive set of intermediate reactions would result in the conjugation of the azide group to the corresponding alkyne group, yielding a successful connection between the aptamers and the DNA box (Presolski et al., 2011, Castro et al., 2016).
+
+However, this approach would involve a modification step with the A10-3.2 aptamer, where either an azide or an alkyne group would have to be attached. Due to a lack of procurement resources for a pre-modified A10-3.2 aptamer, compounded with the sensitivity of the A10-3.2 aptamer to environmental factors (Lakhin et al., 2013), our team opted to shift our protocol in a different direction. Instead of applying CuAAC to conjugate the aptamers to the DNA box, we chose to use complementary single-stranded DNA (ssDNA) overhangs for this conjugation step. One of the biggest advantages of this approach was the ease of procurement for an aptamer with a DNA overhang (“Click Chemistry | IDT,” n.d.). Furthermore, this conjugation procedure would only involve DNA annealing in a thermocycler (Millipore Sigma. n.d.), which would be simpler to accomplish compared to CuAAC. Overall, complementary ssDNA overhang conjugation proved to be a more feasible approach towards attaching the A10-3.2 aptamers to the DNA box due to its relatively simpler procedures.
+
+## Design and Computational Related Challenges
+
+Lastly, a third major obstacle that we faced involved the development of our DNA box structure. After designing the first iteration of the box in cadnano&copy; (Douglas et al., 2009), it could not be processed by CanDo&copy; due to improper crossover positions and staple design (Kim et al., 2012). To resolve this, we had to redesign the entire box, including the scaffold, four times before achieving successful CanDo&copy; results. Although a necessary step in design, these issues did set us back a few weeks and reduced the number of feasible validation experiments we could do in the summer.
+
+In addition to CanDo&copy; related challenges, our team faced file synchronization issues in preparing our files for docking. Synchronization requires converting the JSON cadnano&copy; file to a PDB or mmCIF file format. TacoxDNA is a platform that facilitates this conversion (Suma et al., 2019), but its outputs have problems related with residue naming, chain naming, and chain numbering. As a result, we needed to understand PDB file formatting and develop custom Biopython scripts to modify these files into a format compatible with docking platforms. This proved to be a major bottleneck, requiring nearly a month to resolve issues related to scripting, residue numbering, and file formatting.
+
+Additionally, we encountered limitations in computationally assessing A10-3.2 aptamer binding affinity for PSMA versus its complement strand. The main reason for this was poor structural characterization of A10-3.2. Since there were no known structural studies on the A10-3.2 aptamer, we ran AlphaFold 3 (​​Abramson et al., 2024) models to gain insights. Unfortunately, the model outputs were of low confidence, preventing us from effectively evaluating the aptamer’s structure and binding affinity for PSMA.
+
+Finally, while developing the locoregional prostate tissue diffusion model, we encountered challenges with PDE stability. After multiple iterations, we determined that the PDE system was stiff. To address this, we experimented with various discretization and time steps, as well as PDE solver methods. We concluded that assuming a first-order reaction and using a modified Euler’s method, with discretization courant conditions, could enhance stability and predictability for small time intervals (Caminha, 2024).
+
+## Experimental Related Challenges
+
+Extending beyond our protocols, we encountered challenges during the implementation of our lab procedures. Many experimental parameters must be optimized, starting with the characterization of our validation strategies (ELISA, gel electrophoresis). Given limited resources and time, careful planning was done to ensure that the limited set of conditions and experimental runs would be able to generate the set of proof-of-concepts for our project. Experimental replicates and further optimization would be required to more stringently characterize our system.
+
+## References
+
+<ReferenceList>
+
+​​Abramson, J., Adler, J., Dunger, J., Evans, R., Green, T., Pritzel, A., Ronneberger, O., Willmore, L., Ballard, A. J., Bambrick, J., Bodenstein, S. W., Evans, D. A., Hung, C.-C., O’Neill, M., Reiman, D., Tunyasuvunakool, K., Wu, Z., Žemgulytė, A., Arvaniti, E., & Beattie, C. (2024). Accurate structure prediction of biomolecular interactions with AlphaFold 3. Nature, 630, 493–500. https://doi.org/10.1038/s41586-024-07487-w
+Suma, A., Poppleton, E., Matthies, M., Šulc, P., Romano, F., Louis, A. A., Doye, J. P. K., Micheletti, C., & Rovigatti, L. (2019). TacoxDNA: A user-friendly web server for simulations of complex DNA structures, from single strands to origami. Journal of Computational Chemistry, 40(24), 2586–2595. https://doi.org/10.1002/jcc.26009
+Caminha, G. (2024, March 11). The CFL Condition and How to Choose Your Timestep Size. SimScale. https://www.simscale.com/blog/cfl-condition/
+Click Chemistry | IDT. (n.d.). . Retrieved November 2, 2024, from https://www.idtdna.com/site/Catalog/Modifications/ClickChemistry/8
+Douglas, S. M., Dietz, H., Liedl, T., Högberg, B., Graf, F., & Shih, W. M. (2009). Self-assembly of DNA into nanoscale three-dimensional shapes. Nature, 459(7245), 414–418. https://doi.org/10.1038/nature08016]
+Kim, D. N., Kilchherr, F., Dietz, H., & Bathe, M. (2012). Quantitative prediction of 3D solution shape and flexibility of nucleic acid nanostructures. Nucleic acids research, 40(7), 2862–2868. https://doi.org/10.1093/nar/gkr1173
+Kolb, H. C., Finn, M. G., & Sharpless, K. B. (2001). Click Chemistry: Diverse Chemical Function from a Few Good Reactions. Angewandte Chemie International Edition.
+Koumarianou, A. A., Hudson, M., Williams, R., Epenetos, A. A., & Stamp, G. W. (1999). Development of a novel bi-specific monoclonal antibody approach for tumour targeting. British Journal of Cancer, 81(3), 431–439.
+Lakhin, A. V., Tarantul, V. Z., & Gening, L. V. (2013). Aptamers: problems, solutions and prospects. Acta naturae, 5(4), 34–43.
+Millipore Sigma. (n.d.). Annealing Oligos Protocol. Retrieved November 2, 2024, from https://www.sigmaaldrich.com/CA/en/technical-documents/protocol/genomics/pcr/annealing-oligosCastro, V., Rodríguez, H., & Albericio, F. (2016). Cuaac: an efficient click chemistry reaction on solid phase. ACS combinatorial science, 18(1), 1–14.
+Ouyang, X., De Stefano, M., Krissanaprasit, A., Bank Kodal, A. L., Bech Rosen, C., Liu, T., Helmig, S., et al. (2017). Docking of Antibodies into the Cavities of DNA Origami Structures. Angewandte Chemie International Edition, 129(46), 14615–14619.
+Presolski, S. I., Hong, V. P., & Finn, M. G. (2011). Copper-Catalyzed Azide-Alkyne Click Chemistry for Bioconjugation. Current protocols in chemical biology, 3(4), 153–162.
+
+</ReferenceList>

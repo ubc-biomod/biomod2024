@@ -1,0 +1,39 @@
+---
+title: The Selection of Antibody and Aptamer
+description: Antibody and Aptamer Selection
+---
+
+import ReferenceList from "@/components/ReferenceList.astro";
+
+## Antibody Selection
+
+To elicit an immune response, the AND box uses anti-CD3 antibodies that are selectively exposed to the environment based on the presence of PSMA receptors. Our team selected the anti-CD3 antibody due to its established EU and FDA approval and its ability to recruit T-regulatory cells (T-regs) that release cytokines for signal amplification.
+
+From a time-to-market perspective, our AND box would undergo rigorous testing by health authorities worldwide (Singh et al., 2021). However, by incorporating components from existing, approved designs, we can expedite approval. This rationale led us to choose anti-CD3, already approved by both the EU and FDA.
+
+Furthermore, anti-CD3 recruits the entire pan T-cell population, including both T-regs and cytotoxic T-cells. Given that prostate cancer is a “cold” tumor (Stulz & Fong, 2021), predominantly composed of T-regs, these cells can bind, releasing chemokines that attract cytotoxic T-cells. This process amplifies the signal, as a single anti-CD3 can now activate hundreds of T-cells.
+
+Additionally, our team chose to use the entire anti-CD3 antibody over small fragments as full-length antibodies possess an Fc (fragment crystallizable) region that mediates effector functions such as antibody-dependent cellular cytotoxicity (ADCC) and complement-dependent cytotoxicity (CDC) (Lu et al., 2018). These functions are crucial for recruiting immune cells to eliminate target cells. In contrast, antibody fragments lack the Fc region, resulting in the absence of these effector functions.
+
+Finally, anti-CD3 antibodies are frequently used in bi-specific T-cell engagers (BiTEs) for prostate cancer, and their efficacy has been previously tested (Dang et al., 2021). One challenge with BiTEs is that the anti-CD3 antibody remains exposed to the environment, requiring it to be delivered in low doses and locally. Our AND box addresses these issues by only exposing the anti-CD3 antibody in the presence of PSMA, overcoming these barriers.
+
+## Aptamer Selection
+
+To facilitate the opening of the lid on the DNA box, we designed an RNA aptamer-based lock mechanism that opens in response to binding to Prostate-Specific Membrane Antigens (PSMAs) keys (Anderson et al., 2009; Douglas et al., 2012). Aptamers are short, single-stranded DNA or RNA molecules that can selectively bind to specific targets.
+
+The aptamer selected for this lock mechanism is the A10-3.2 aptamer, which has a high binding affinity for PSMA, ensuring effective targeting of PSMA-expressing cells. Additionally, the A10-3.2 aptamer has a strong specificity for PSMA (Min et al., 2011). One concern with choosing an aptamer is the molecular weight, with high molecular weights resulting in a decreased ability to target molecules. At only 37 nucleotides, the A10-3 aptamer provides a good balance between a reduced molecular weight and a strong binding affinity to PSMA.
+
+In our design, the aptamers are integrated as staple strands within the DNA box via phosphodiester bonds similar to previous design by Douglas et al. (2012). These aptamers are permanently bound to the structure of the box, ensuring their stability and functionality within the DNA box. The aptamers are attached to the DNA box lid through complementary DNA sequences. When PSMA binds to the aptamers, it acts as a key that unlocks the box. The binding induces a conformational change in the DNA aptamers, which in turn destabilizes the lock structure holding the box lid closed. This allows the lid to open and release the immune engagers contained within the box.
+
+## References
+
+<ReferenceList>
+
+Andersen, E., Dong, M., Nielsen, M. et al. Self-assembly of a nanoscale DNA box with a controllable lid. Nature 459, 73–76 (2009). https://doi.org/10.1038/nature07971
+Dang, K., Castello, G., Clarke, S. C., Li, Y., Aarti Balasubramani, Boudreau, A., Davison, L., Harris, K. E., Pham, D., Sankaran, P., Ugamraj, H. S., Deng, R., Kwek, S., Starzinski, A., Iyer, S., Wim van Schooten, Schellenberger, U., Sun, W., Trinklein, N. D., & Buelow, R. (2021). Attenuating CD3 affinity in a PSMAxCD3 bispecific antibody enables killing of prostate tumor cells with reduced cytokine release. Journal for Immunotherapy of Cancer, 9(6), e002488–e002488. https://doi.org/10.1136/jitc-2021-002488
+Douglas, S. M., Bachelet, I., & Church, G. M. (2012). A Logic-Gated Nanorobot for Targeted Transport of Molecular Payloads. Science, 335(6070), 831–834. https://doi.org/10.1126/science.1214081
+Lu, L. L., Suscovich, T. J., Fortune, S. M., & Alter, G. (2018). Beyond binding: antibody effector functions in infectious diseases. Nature Reviews. Immunology, 18(1), 46–61. https://doi.org/10.1038/nri.2017.106
+Min, K., Jo, H., Song, K.-M., Cho, M., Yang Sook Chun, Jon, S., Won Ho Kim, & Ban, C. (2011). Dual-aptamer-based delivery vehicle of doxorubicin to both PSMA (+) and PSMA (−) prostate cancers. Biomaterials, 32(8), 2124–2132. https://doi.org/10.1016/j.biomaterials.2010.11.035
+Stultz, J., & Fong, L. (2021). How to turn up the heat on the cold immune microenvironment of metastatic prostate cancer. Nature: Prostate Cancer and Prostatic Diseases , 24. https://doi.org/10.1038/s41391-021-00340-5
+
+</ ReferenceList>

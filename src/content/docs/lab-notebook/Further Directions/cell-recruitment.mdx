@@ -1,0 +1,149 @@
+---
+title: T-cell Recruitment
+description: T-cell Recruitment for Reducing Cancer Migration
+---
+
+import ReferenceList from "@/components/ReferenceList.astro";
+
+It is widely known that both immunotherapy techniques and the immune system have difficulty treating prostate cancer due to the cancer’s ability to evade immune responses (Barach et al., 2011). Our solution rivals the evasive properties of prostate cancer by targeting prostate-specific membrane antigen, an antigen commonly expressed on prostate cancer cells, to then expose anti-CD3 antibody that recruits T cells to the targeted cell. Similarly to a Bispecific T cell Engager, our design binds to both the cancer cell and a T cell to facilitate T-cell-mediated tumour cell death (Osada et al., 2010).
+
+**Aim:** To validate, as the final step of our design’s proof-of-concept, that an immune response can be initiated by the DNA origami box to recruit T cells to the identified cancer cells. This will be done by means of assessing anti-migratory effects of DNA-box on cancer cell populations through a transwell migration assay.
+
+## Techniques
+
+### Transwell Migration Assay
+
+The transwell migration assay measures cell migration in response to a chemotactic gradient. This setup consists of an upper and lower chamber, separated by a cell-permeable membrane. Cells of interest are seeded in the upper chamber, while the chemoattractant is placed in the lower chamber. Only the cells that have migrated through the membrane are counted to calculate a chemotactic index (Oner & Kobold, 2022). The chemotactic index would be calculated as:
+
+```math
+\text{Chemotactic Index}=\frac{\text{Migrated cells in control condition (no chemoattractant)}}{\text{Migrated cells in test condition (with chemoattractant)​}}
+```
+
+## Reagents
+
+| Reagent Name                         | Supplier        | Catalog Number |
+| ------------------------------------ | --------------- | -------------- |
+| CXCL16                               | Millipore Sigma | C8615-25UG     |
+| Human Serum                          | Sigma-Aldrich   | H4522-100ML    |
+| L-glutamine                          | Sigma-Aldrich   | G7513-100ML    |
+| Penicillin-streptomycin              | Sigma-Aldrich   | P4333-100ML    |
+| MEM non-essential amino acids (100×) | Gibco           | 11140050       |
+| Sodium pyruvate solution 100 mM      | Sigma-Aldrich   | S8636-100ML    |
+| RPMI 1640 Medium                     | Sigma-Aldrich   | R0883-500ML    |
+
+## Methods
+
+### Migration Buffer Preparation
+
+Create a migration buffer according to the table below:
+
+| Reagent                              | Final Concentration                  | Amount     |
+| ------------------------------------ | ------------------------------------ | ---------- |
+| Human Serum                          | 1%                                   | 5 mL       |
+| L-glutamine                          | 2 mM                                 | 5 mL       |
+| Penicillin-streptomycin              | 100 U/mL and 100 μg/mL, respectively | 5 mL       |
+| MEM non-essential amino acids (100×) | 1x                                   | 5 mL       |
+| Sodium pyruvate solution 100 mM      | 1 mM                                 | 5 mL       |
+| RPMI 1640 Medium                     | N/A                                  | 475 mL     |
+| **Total**                            | **N/A**                              | **500 mL** |
+
+|                                                                                                                                                                                                           |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **_Table 1._** _Volumes of human serum, L-glutamine, penicillin-streptomycin, MEM non-essential amino acid, sodium pyruvate solution and RPMI 1640 medium required to create 500 mL of migration medium._ |
+
+### Transwell Plate Preparation
+
+The chemoattractant, CXCL16, is diluted in migration medium to a final concentration of 50 ng/mL. A total of 15 mL of migration medium is prepared in a 50 mL conical tube using the volumes outlined in Table 1. In a separate 50 mL conical tube, a 15 mL positive control (10% human serum) is prepared. The volumes of L-glutamine, penicillin-streptomycin, MEM non-essential amino acid, and sodium pyruvate solution are used as specified in Table 1, followed by the addition of 50 mL of human serum and 430 mL of RPMI 1640 medium. The number of wells in the transwell plate required for each condition is determined as specified in Table 2. Using the volumes in Table 2, the appropriate amounts of migration medium, positive control medium, chemokine solution, and DNA box solution are added to an Eppendorf tube using a pipette.
+
+<table style="border-collapse: collapse; width: 100%; text-align: center;">
+  <tr>
+    <th style="border: 1px solid black; padding: 8px;">Condition</th>
+    <th colspan="2" style="border: 1px solid black; padding: 8px;">
+      Chemokine
+    </th>
+    <th colspan="2" style="border: 1px solid black; padding: 8px;">
+      DNA box concentration
+    </th>
+    <th style="border: 1px solid black; padding: 8px;">
+      Migration Medium Volume per well
+    </th>
+    <th style="border: 1px solid black; padding: 8px;">
+      Total volume per well
+    </th>
+  </tr>
+  <tr>
+    <th style="border: 1px solid black; padding: 8px;"></th>
+    <th style="border: 1px solid black; padding: 8px;">Final concentration</th>
+    <th style="border: 1px solid black; padding: 8px;">Volume added to well</th>
+    <th style="border: 1px solid black; padding: 8px;">Final concentration</th>
+    <th style="border: 1px solid black; padding: 8px;">Volume added to well</th>
+    <th style="border: 1px solid black; padding: 8px;"></th>
+    <th style="border: 1px solid black; padding: 8px;"></th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Baseline control</td>
+    <td style="border: 1px solid black; padding: 8px;">0 ng/mL</td>
+    <td style="border: 1px solid black; padding: 8px;">0 µL</td>
+    <td style="border: 1px solid black; padding: 8px;">0 ng/mL</td>
+    <td style="border: 1px solid black; padding: 8px;">0 µL</td>
+    <td style="border: 1px solid black; padding: 8px;">225 µL</td>
+    <td style="border: 1px solid black; padding: 8px;">225 µL</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">
+      Positive control (Chemokine)
+    </td>
+    <td style="border: 1px solid black; padding: 8px;">50 ng/mL</td>
+    <td style="border: 1px solid black; padding: 8px;">TBD</td>
+    <td style="border: 1px solid black; padding: 8px;">0 ng/mL</td>
+    <td style="border: 1px solid black; padding: 8px;">0 µL</td>
+    <td style="border: 1px solid black; padding: 8px;">TBD</td>
+    <td style="border: 1px solid black; padding: 8px;">225 µL</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">
+      Positive control (10% human serum)
+    </td>
+    <td style="border: 1px solid black; padding: 8px;">0 ng/mL</td>
+    <td style="border: 1px solid black; padding: 8px;">0 µL</td>
+    <td style="border: 1px solid black; padding: 8px;">0 ng/mL</td>
+    <td style="border: 1px solid black; padding: 8px;">0 µL</td>
+    <td style="border: 1px solid black; padding: 8px;">225 µL</td>
+    <td style="border: 1px solid black; padding: 8px;">225 µL</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">DNA Box Treatment</td>
+    <td style="border: 1px solid black; padding: 8px;">0 ng/mL</td>
+    <td style="border: 1px solid black; padding: 8px;">0 µL</td>
+    <td style="border: 1px solid black; padding: 8px;">30 µg/mL</td>
+    <td style="border: 1px solid black; padding: 8px;">TBD</td>
+    <td style="border: 1px solid black; padding: 8px;">TBD</td>
+    <td style="border: 1px solid black; padding: 8px;">225 µL</td>
+  </tr>
+</table>
+
+|                                                                                                                                                                                                                                                                                                                                                                 |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **_Table 2._** _ Final concentration of each component for each condition. Note that the positive control (10% human serum) is prepared with 10% human serum (refer to step 3 for volumes). TBD indicates that the initial solution volume has not been determined yet, and thus the volume to be added for that condition cannot be determined at this point._ |
+
+### T Cell Preparation
+
+Collect T cell pellets from cell culture by centrifuging at $$400\times g$$ for 5 min. Aspirate the supernatant and discard. Resuspend the cells in the migration medium. Perform a cell count ensuring that the cell concentration is ~$$10^6$$ cells/mL before counting. Determine and add the amount of migration medium for a concentration of $$1 \times 10^6$$ cells/70 μL (∼$$14.29 \times 10^6$$ cells/mL).
+
+### Transwell Migration Assay
+
+In a transwell migration plate, add 100 µL of the migration medium into the lower chamber of the wells. Seed LNCaP cells at a density between $$9.4 \times 10^4$$ and $$6.25 \times 10^4$$ $$\text{cells}/cm^2$$. Incubate cells for 1 hour to allow cells to adhere to the plate. Aspirate the media from the lower chamber chambers and add 100 µL of the appropriate media for each condition. Place the inserts on the wells and add 70 μL of T cells suspended in the migration medium to the upper chamber (insert) of each well. Without removing the insert, add 125 μL more of the medium to the lower chamber of the wells corresponding to the conditions. A reverse pipetting technique should be used to prevent bubble formation: Push the knob all the way down to the second stop, aspirate the sample and dispose by pushing the knob until the first stop. Put the lid on gently without applying any pressure. Transfer the plate to an incubator. Let the cells migrate for 4 hours. When moving the assay plate, extra precautions should be taken to avoid making any sudden or jerky movements.
+
+## Expected Results
+
+A **higher chemotactic index** generally indicates **greater cell migration** toward the chemoattractant, suggesting that the cells are more responsive to the chemotactic gradient. As such, when successfully implemented, the condition with DNA box treatment should inhibit migration and induce cell apoptosis, resulting in a **lower chemotactic index**. This reduction in migration reflects the DNA box's effectiveness in blocking or reducing cell movement in response to the chemotactic signal. Time permitting, we will also perform a live-dead assay to assess the viability of LNCaP from the transwell migration experiments. It is expected that the viability of cancer cells would be low, due to an increased number of immune-induced cell apoptosis events driven by the DNA box, compared to the negative control (no DNA box).
+
+## References
+
+<ReferenceList>
+
+    Barach, Y. S., Lee, J. S., & Zang, X. (2011). T cell coinhibition in prostate cancer: New immune evasion pathways and emerging therapeutics. Trends in Molecular Medicine, 17(1), 47. https://doi.org/10.1016/j.molmed.2010.09.006
+    Oner, A., & Kobold, S. (2022). Transwell migration assay to interrogate human CAR-T cell chemotaxis. STAR Protocols, 3(4), 101708. https://doi.org/10.1016/j.xpro.2022.101708
+    Osada, T., Hsu, D., Hammond, S., Hobeika, A., Devi, G., Clay, T. M., Lyerly, H. K., & Morse, M. A. (2010). Metastatic colorectal cancer cells from patients previously treated with chemotherapy are sensitive to T-cell killing mediated by CEA/CD3-bispecific T-cell-engaging BiTE antibody. British Journal of Cancer, 102(1), 124–133. https://doi.org/10.1038/sj.bjc.6605364
+
+</ReferenceList>
