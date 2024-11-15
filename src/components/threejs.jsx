@@ -212,8 +212,9 @@ export default function ThreeJSComponent() {
     <div className="grid grid-rows-3 grid-cols-3 aspect-square w-3/4 rounded-full gradient-background p-30 place-items-center gap-x-4">
       
       {/* Title in top right */}
-      <div className="text-center row-start-1 col-start-3 text-lg font-bold whitespace-nowrap">
-        <h1>The Origami Box</h1>
+      <div className="text-start row-start-1 col-start-3 text-lg font-bold">
+        <h1 className="whitespace-nowrap">The AND Box:</h1>
+        <span className="glowing-text dark:text-white dark:drop-shadow-none">A Targeted Anti-CD3 Delivery System for Prostate Cancer</span>
       </div>
       
       {/* 3D Component Centered */}

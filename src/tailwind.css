@@ -30,3 +30,10 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.glowing-text {
+  text-shadow:
+    0 0 5px rgba(255, 255, 255, 0.8),
+    /* Inner glow */ 0 0 10px rgba(255, 255, 255, 0.6),
+    /* Middle glow */ 0 0 15px rgba(255, 255, 255, 0.4); /* Outer glow */
+}
