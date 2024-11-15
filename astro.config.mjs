@@ -5,7 +5,6 @@ import starlight from "@astrojs/starlight";
 import tailwind from "@astrojs/tailwind";
 
 import react from "@astrojs/react";
-
 import netlify from '@astrojs/netlify';
 
 import rehypeKatex from "rehype-katex";
@@ -19,6 +18,10 @@ export default defineConfig({
       social: {
         github: "https://github.com/withastro/starlight",
       },
+      customCss: [
+        // Path to your Tailwind base styles:
+        "./src/styles/tailwind.css",
+      ],
       sidebar: [
         {
           label: "Home",
@@ -52,7 +55,6 @@ export default defineConfig({
         Pagination: "./src/components/overrides/Pagination.astro",
         Footer: "./src/components/overrides/FooterWrapper.astro",
       },
-      customCss: ["./src/tailwind.css"],
     }),
     tailwind({
       applyBaseStyles: false

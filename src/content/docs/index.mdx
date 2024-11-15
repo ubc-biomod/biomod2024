@@ -4,9 +4,16 @@ description: Get started building your docs site with Starlight.
 template: splash
 hero: # THIS IS INTENTIONALLY LEFT BLANK!!
   tagline: ""
+  class: "background-image"
 ---
 
 import YouTubeVideo from "../../components/YouTubeVideo.astro";
 import Footer from "../../components/Footer.tsx";
+import Hero from "../../components/hero.jsx";
 
-<YouTubeVideo videoId="dQw4w9WgXcQ" />
+<div class="flex justify-center">
+  <div class="w-[100%] space-y-1">
+    <Hero client:load />
+    <YouTubeVideo videoId="2GQNxD_FpCI" />
+  </div>
+</div>
