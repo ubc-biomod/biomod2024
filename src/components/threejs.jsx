@@ -212,7 +212,7 @@ export default function ThreeJSComponent() {
     <div className="grid grid-rows-3 grid-cols-3 aspect-square w-3/4 rounded-full gradient-background p-30 place-items-center gap-x-4">
       
       {/* Title in top right */}
-      <div className="text-start row-start-1 col-start-3 text-lg font-bold">
+      <div className="text-start row-start-1 col-start-3 lg:row-start-2 lg:col-start-1 text-lg font-bold lg:-ml-40">
         <h1 className="whitespace-nowrap">The AND Box:</h1>
         <span className="glowing-text dark:text-white dark:drop-shadow-none">A Targeted Anti-CD3 Delivery System for Prostate Cancer</span>
       </div>
@@ -226,7 +226,7 @@ export default function ThreeJSComponent() {
       
       
       {/* Text in bottom left */}
-      <div className={`text-center row-start-3 col-start-1 text-lg font-bold transition-all mb-10 duration-${TEXTANIMATIONTIME}} transform ${
+      <div className={`text-center row-start-3 col-start-1 lg:col-start-3 lg:row-start-2 lg:-mr-40 text-lg font-bold transition-all mb-10 duration-${TEXTANIMATIONTIME}} transform ${
         isFading? "scale-0" : "scale-100"
       }`}>
         <h3 className="">
