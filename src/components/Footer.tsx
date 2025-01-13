@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { FaInstagram, FaYoutube, FaLinkedin } from "react-icons/fa";
 import { type MarqueeProps } from "react-fast-marquee";
+import fallback from '../assets/headshot_fallback.jpg';
 
 interface CarouselItem {
   image: string; // image
@@ -54,7 +55,7 @@ const Footer: React.FC = () => {
         const items = data
           .filter((item: any) => item.name && item.subteam) // filter out items with no name or subteam
           .map((item: any) => ({
-            image: item.image_url || "user.png", // Fallback image if img_url is empty
+            image: item.image_url || fallback.src, // Fallback image if img_url is empty
             text: `${item.name} - ${item.subteam}`,
           }));
 
