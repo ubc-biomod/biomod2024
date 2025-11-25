@@ -94,7 +94,7 @@ const Footer: React.FC = () => {
         {carouselItems.length !== 0 && (
           <div className="flex flex-col items-center">
             <h1 className="text-2xl md:text-4xl text-black font-bold">
-              Meet the UBC BIOMOD Team
+              Meet the UBC BIOMOD Team!
             </h1>
             <h4 className="h-6 text-md text-black">{activeText}</h4>
           </div>
