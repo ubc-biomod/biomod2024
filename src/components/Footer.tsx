@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { FaInstagram, FaYoutube, FaLinkedin } from "react-icons/fa";
 import { type MarqueeProps } from "react-fast-marquee";
-import fallback from '../assets/headshot_fallback.jpg';
+import fallback from "../assets/headshot_fallback.jpg";
 
 interface CarouselItem {
   image: string; // image
@@ -40,6 +40,11 @@ const additionalLinks = [
   },
 ];
 
+// Hardcoded members (optional - add members here to include them without fetching from database)
+const hardcodedMembers: CarouselItem[] = [
+  { image: "norman.png", text: "Norman - Wetlab" },
+];
+
 const Footer: React.FC = () => {
   const [_, setHoverIndex] = useState<number | null>(null);
   const [activeText, setActiveText] = useState<string>("");
@@ -59,15 +64,18 @@ const Footer: React.FC = () => {
             text: `${item.name} - ${item.subteam}`,
           }));
 
+        // Combine fetched items with hardcoded members
+        const allItems = [...items, ...hardcodedMembers];
+
         const THRESHOLD = 15;
         // Check if the items are below the threshold, repeat if needed
         setCarouselItems(
-          items.length < THRESHOLD
+          allItems.length < THRESHOLD
             ? Array.from(
-                { length: Math.ceil(THRESHOLD / items.length) },
-                () => items,
+                { length: Math.ceil(THRESHOLD / allItems.length) },
+                () => allItems,
               ).flat()
-            : items,
+            : allItems,
         );
       })
       .catch((error) => console.error("Error fetching carousel data:", error));
